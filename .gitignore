@@ -3,3 +3,4 @@
 target
 *.xml
 !pom.xml
+*.class
