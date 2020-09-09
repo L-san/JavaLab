@@ -1,4 +1,4 @@
-package ru.ssau.tk.lsan.JavaLab;
+package ru.ssau.tk.lsan.task1;
 
 public class HelloJava {
 //TODO отдельные файлы для задачек, видимо. А то мэйн один, а вас много
