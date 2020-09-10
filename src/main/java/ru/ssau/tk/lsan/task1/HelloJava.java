@@ -19,5 +19,10 @@ public class HelloJava {
         Person human3 = new Person(5);
         Person human4 = new Person("firstName","lastName",5);
         //--------------------------------------------------------------
+
+        //task 1.3------------------------------------------------------
+        Point zeroPoint = new Point(0,0,0);
+        Point eeePoint = new Point(Math.E,Math.E,Math.E);
+        //--------------------------------------------------------------
     }
 }
