@@ -28,11 +28,13 @@ public class HelloJava {
         //task 1.4------------------------------------------------------
         Point sumAns = new Point(0,0,0);
         //sumAns = Points.sum(zeroPoint,eeePoint);
-        //System.out.println("Sum is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
+        //System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
         //sumAns = Points.substract(zeroPoint,eeePoint);
-        //System.out.println("Sum is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
-        sumAns = Points.multiply(zeroPoint,eeePoint);
-        System.out.println("Sum is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
+        //System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
+        //sumAns = Points.multiply(zeroPoint,eeePoint);
+        //System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
+        sumAns = Points.divide(zeroPoint,eeePoint);
+        System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
         //--------------------------------------------------------------
 
         //task 1.5------------------------------------------------------
