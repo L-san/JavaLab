@@ -27,7 +27,9 @@ public class HelloJava {
 
         //task 1.4------------------------------------------------------
         Point sumAns = new Point(0,0,0);
-        sumAns = Points.sum(zeroPoint,eeePoint);
+        //sumAns = Points.sum(zeroPoint,eeePoint);
+        //System.out.println("Sum is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
+        sumAns = Points.substract(zeroPoint,eeePoint);
         System.out.println("Sum is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
         //--------------------------------------------------------------
 
