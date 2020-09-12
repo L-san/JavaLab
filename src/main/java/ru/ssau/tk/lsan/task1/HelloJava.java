@@ -23,6 +23,7 @@ public class HelloJava {
         //task 1.3------------------------------------------------------
         Point zeroPoint = new Point(0,0,0);
         Point eeePoint = new Point(Math.E,Math.E,Math.E);
+        Point ottPoint = new Point(1,2,3);
         //--------------------------------------------------------------
 
         //task 1.4------------------------------------------------------
@@ -33,7 +34,9 @@ public class HelloJava {
         //System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
         //sumAns = Points.multiply(zeroPoint,eeePoint);
         //System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
-        sumAns = Points.divide(zeroPoint,eeePoint);
+        //sumAns = Points.divide(zeroPoint,eeePoint);
+        //System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
+        sumAns = Points.enlarge(ottPoint, (double)2.0);
         System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
         //--------------------------------------------------------------
 
