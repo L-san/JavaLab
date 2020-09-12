@@ -24,5 +24,15 @@ public class HelloJava {
         Point zeroPoint = new Point(0,0,0);
         Point eeePoint = new Point(Math.E,Math.E,Math.E);
         //--------------------------------------------------------------
+
+        //task 1.4------------------------------------------------------
+        Point sumAns = new Point(0,0,0);
+        sumAns = Points.sum(zeroPoint,eeePoint);
+        System.out.println("Sum is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
+        //--------------------------------------------------------------
+
+        //task 1.5------------------------------------------------------
+
+        //--------------------------------------------------------------
     }
 }
