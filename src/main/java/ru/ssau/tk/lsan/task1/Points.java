@@ -24,4 +24,8 @@ public class Points {
                          firstPoint.Y/secondPoint.Y,
                          firstPoint.Z/secondPoint.Z);
     }
+
+    public static Point enlarge(Point firstPoint, double secondPoint){
+        return Points.multiply(firstPoint,new Point(secondPoint,secondPoint,secondPoint));
+    }
 }
