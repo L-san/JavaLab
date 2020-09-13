@@ -35,4 +35,9 @@ public class Points {
         return point.length();
     }
 
+    public static Point opposite(Point point){
+        return multiply(point, new Point(-1,-1,-1));
+    }
+
+
 }
