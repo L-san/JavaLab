@@ -39,5 +39,9 @@ public class Points {
         return multiply(point, new Point(-1,-1,-1));
     }
 
+    public static Point inverse(Point point){
+        return divide(new Point(1,1,1), point);
+    }
+
 
 }
