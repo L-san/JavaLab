@@ -36,12 +36,15 @@ public class HelloJava {
         //System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
         //sumAns = Points.divide(zeroPoint,eeePoint);
         //System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
-        sumAns = Points.enlarge(ottPoint, (double)2.0);
-        System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
         //--------------------------------------------------------------
 
         //task 1.5------------------------------------------------------
+        //sumAns = Points.enlarge(ottPoint, (double)2.0);
+        //System.out.println("ans is "+sumAns.X+" "+sumAns.Y+" "+sumAns.Z);
+        //--------------------------------------------------------------
 
+        //task 1.6------------------------------------------------------
+        System.out.println("ans is "+ottPoint.length());
         //--------------------------------------------------------------
     }
 }
