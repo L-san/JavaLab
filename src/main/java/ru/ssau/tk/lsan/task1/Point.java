@@ -1,5 +1,7 @@
 package ru.ssau.tk.lsan.task1;
 
+import static java.lang.Math.sqrt;
+
 public class Point {
     public final double X;
     public final double Y;
@@ -9,5 +11,9 @@ public class Point {
         this.X = X;
         this.Y = Y;
         this.Z = Z;
+    }
+
+    public double length(){
+        return sqrt(this.X*this.X+this.Y*this.Y+this.Z*this.Z);
     }
 }
