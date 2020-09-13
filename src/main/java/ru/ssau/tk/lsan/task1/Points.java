@@ -1,5 +1,7 @@
 package ru.ssau.tk.lsan.task1;
 
+import static java.lang.Math.sqrt;
+
 public class Points {
     public static Point sum(Point firstPoint, Point secondPoint){
         return new Point(firstPoint.X+secondPoint.X,
@@ -28,4 +30,9 @@ public class Points {
     public static Point enlarge(Point firstPoint, double secondPoint){
         return Points.multiply(firstPoint,new Point(secondPoint,secondPoint,secondPoint));
     }
+
+    public static double length(Point point){
+        return point.length();
+    }
+
 }
