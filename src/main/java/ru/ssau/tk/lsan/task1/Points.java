@@ -48,4 +48,8 @@ public class Points {
                          firstPoint.Z*secondPoint.X-firstPoint.X*secondPoint.Z,
                          firstPoint.X*secondPoint.Y-firstPoint.Y*secondPoint.X);
     }
+
+    public static double scalarProduct(Point firstPoint, Point secondPoint){
+        return firstPoint.X*secondPoint.X+ firstPoint.Y*secondPoint.Y+firstPoint.Z*secondPoint.Z;
+    }
 }
