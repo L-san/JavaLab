@@ -43,5 +43,9 @@ public class Points {
         return divide(new Point(1,1,1), point);
     }
 
-
+    public static Point vectorProduct(Point firstPoint, Point secondPoint){
+        return new Point(firstPoint.Y*secondPoint.Z-firstPoint.Z*secondPoint.Y,
+                         firstPoint.Z*secondPoint.X-firstPoint.X*secondPoint.Z,
+                         firstPoint.X*secondPoint.Y-firstPoint.Y*secondPoint.X);
+    }
 }
