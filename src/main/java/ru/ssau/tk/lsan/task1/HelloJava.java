@@ -50,5 +50,7 @@ public class HelloJava {
         //task 1.7------------------------------------------------------
         System.out.println("ans is "+Points.opposite(ottPoint).X);
         //--------------------------------------------------------------
+
+
     }
 }

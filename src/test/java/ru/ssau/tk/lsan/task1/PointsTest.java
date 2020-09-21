@@ -3,7 +3,7 @@ package ru.ssau.tk.lsan.task1;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
-
+@Test
 public class PointsTest {
 
     @Test
@@ -14,4 +14,5 @@ public class PointsTest {
         assertEquals(testPoint.Y,-1);
         assertEquals(testPoint.Z,-1);
     }
+
 }
