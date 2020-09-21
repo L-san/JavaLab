@@ -7,13 +7,13 @@ public class Point {
     public final double Y;
     public final double Z;
 
-    public Point(double X, double Y, double Z){
+    public Point(double X, double Y, double Z) {
         this.X = X;
         this.Y = Y;
         this.Z = Z;
     }
 
-    public double length(){
-        return sqrt(this.X*this.X+this.Y*this.Y+this.Z*this.Z);
+    public double length() {
+        return sqrt(this.X * this.X + this.Y * this.Y + this.Z * this.Z);
     }
 }
