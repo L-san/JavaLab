@@ -53,5 +53,5 @@ public class Points {
         return firstPoint.X * secondPoint.X + firstPoint.Y * secondPoint.Y + firstPoint.Z * secondPoint.Z;
     }
 
-    
+
 }
