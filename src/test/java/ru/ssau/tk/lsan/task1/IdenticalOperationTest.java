@@ -6,10 +6,11 @@ import static org.testng.Assert.*;
 
 @Test
 public class IdenticalOperationTest {
-    Operation posInf = new IdenticalOperation();
+    Operation testFunc = new IdenticalOperation();
 
     @Test
     public void testApply() {
-        assertEquals(posInf.apply(Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY);
+        assertEquals(testFunc.apply(Double.POSITIVE_INFINITY), Double.POSITIVE_INFINITY);
+        assertEquals(testFunc.apply(Double.NEGATIVE_INFINITY), Double.NEGATIVE_INFINITY);
     }
 }
