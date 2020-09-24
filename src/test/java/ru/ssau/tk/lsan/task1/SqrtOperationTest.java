@@ -11,6 +11,6 @@ public class SqrtOperationTest {
     @Test
     public void testApply() {
         assertEquals(testFunc.apply(4), 2, 0.001);
-
+        assertEquals(testFunc.apply(Double.POSITIVE_INFINITY),Double.POSITIVE_INFINITY);
     }
 }
