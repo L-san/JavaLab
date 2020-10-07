@@ -9,7 +9,7 @@ public class ArrayTest {
     protected final static int size = 6;
     protected final static double delta = 0.001;
     protected final Double[] newArr = new Array().newFilledDoubleArray(size);
-
+    protected final Double[] newOddArr = new Array().newOddArray(size);
     @Test
     public void testNewEmptyDoubleArray() {
         assertEquals(testArr.newEmptyDoubleArray(2).length, 2);
@@ -22,6 +22,13 @@ public class ArrayTest {
         assertEquals(newArr[size - 1], 2d, delta);
         for (int i = 1; i < size - 2; i++) {
             assertEquals(newArr[i], 1d, delta);
+        }
+    }
+
+    @Test
+    public void testNewOddArray() {
+        for (int i = 0; i < size; i++) {
+            assertEquals(newOddArr[i], 2*i+1d, delta);
         }
     }
 }

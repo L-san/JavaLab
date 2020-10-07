@@ -16,4 +16,13 @@ public class Array implements ArrayMethods {
             }
             return arr;
     }
+
+    @Override
+    public Double[] newOddArray(int size) {
+        Double[] arr = new Double[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = 2d*i+1d;
+        }
+        return arr;
+    }
 }
