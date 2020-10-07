@@ -25,4 +25,13 @@ public class Array implements ArrayMethods {
         }
         return arr;
     }
+
+    @Override
+    public Double[] newDescendingEvenArray(int size) {
+        Double[] arr = new Double[size];
+        for (int i = size-1; i > -1; i--) {
+            arr[i] = 2d*i+2;
+        }
+        return arr;
+    }
 }

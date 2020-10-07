@@ -4,4 +4,5 @@ public interface ArrayMethods {
     public Double[] newEmptyDoubleArray(int size);
     public Double[] newFilledDoubleArray(int size);
     public Double[] newOddArray(int size);
+    public Double[] newDescendingEvenArray(int size);
 }
