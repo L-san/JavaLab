@@ -41,4 +41,13 @@ public class Array extends Numbers implements ArrayMethods{
         getFibonacci(size, arr);
         return arr;
     }
+
+    @Override
+    public Double[] newSqrIndexArray(int size) {
+        Double[] arr = new Array().newEmptyDoubleArray(size);
+        for (int i = 0; i < size; i++) {
+            arr[i] = (double)(i*i);
+        }
+        return arr;
+    }
 }
