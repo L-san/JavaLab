@@ -11,6 +11,8 @@ public class ArrayTest {
     protected final Double[] newArr = new Array().newFilledDoubleArray(size);
     protected final Double[] newOddArr = new Array().newOddArray(size);
     protected final Double[] newEvenArr = new Array().newDescendingEvenArray(size);
+    protected final Double[] newFibArr = new Array().newFibonacciArray(6);
+    protected final Double[] fibArr = new Double[]{1d,1d,2d,3d,5d,8d};
     @Test
     public void testNewEmptyDoubleArray() {
         assertEquals(testArr.newEmptyDoubleArray(2).length, 2);
@@ -37,6 +39,13 @@ public class ArrayTest {
     public void testNewDescendingEvenArray() {
         for (int i = size-1; i > -1; i--) {
             assertEquals(newEvenArr[i], 2*i+2, delta);
+        }
+    }
+
+    @Test
+    public void testNewFibonacciArray() {
+        for (int i = size-1; i > -1; i--) {
+            assertEquals(newFibArr[i], fibArr[i], delta);
         }
     }
 }
