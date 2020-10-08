@@ -1,6 +1,6 @@
 package ru.ssau.tk.lsan.task2;
 
-public class Array implements ArrayMethods {
+public class Array extends Numbers implements ArrayMethods{
     @Override
     public Double[] newEmptyDoubleArray(int size) {
         return new Double[size];
@@ -32,6 +32,13 @@ public class Array implements ArrayMethods {
         for (int i = size-1; i > -1; i--) {
             arr[i] = 2d*i+2;
         }
+        return arr;
+    }
+
+    @Override
+    public Double[] newFibonacciArray(int size) {
+        Double[] arr = new Array().newEmptyDoubleArray(size);
+        getFibonacci(size, arr);
         return arr;
     }
 }

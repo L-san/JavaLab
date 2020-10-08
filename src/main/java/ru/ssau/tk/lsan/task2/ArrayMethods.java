@@ -5,4 +5,5 @@ public interface ArrayMethods {
     public Double[] newFilledDoubleArray(int size);
     public Double[] newOddArray(int size);
     public Double[] newDescendingEvenArray(int size);
+    public Double[] newFibonacciArray(int size);
 }
