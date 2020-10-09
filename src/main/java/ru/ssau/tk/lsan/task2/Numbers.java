@@ -14,4 +14,5 @@ public class Numbers {
             return (n < 2d ? (MemoryArr[n] = 1d) : (MemoryArr[n] = getFibonacci(n - 1, MemoryArr) + getFibonacci(n - 2, MemoryArr)));
         }
     }
+
 }

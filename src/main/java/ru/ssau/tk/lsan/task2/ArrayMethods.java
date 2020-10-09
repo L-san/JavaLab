@@ -7,4 +7,5 @@ public interface ArrayMethods {
     public Double[] newDescendingEvenArray(int size);
     public Double[] newFibonacciArray(int size);
     public Double[] newSqrIndexArray(int size);
+    public Double[] newQuadraticEquationArray(double a, double b, double c);
 }
