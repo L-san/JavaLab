@@ -8,4 +8,5 @@ public interface ArrayMethods {
     public Double[] newFibonacciArray(int size);
     public Double[] newSqrIndexArray(int size);
     public Double[] newQuadraticEquationArray(double a, double b, double c);
+    public Double[] newNotDivisibleBy3Array(int size);
 }

@@ -74,4 +74,10 @@ public class ArrayTest {
             assertEquals(newQuadZeroA[i], quadZeroA[i], delta);
         }
     }
+
+    @Test
+    public void testNewNotDivisibleBy3Array() {
+        final Double[] newArr = new Array().newNotDivisibleBy3Array(6);
+        final Double[] DivArr = new Double[]{1d,5d,7d,11d,13d,17d};
+    }
 }

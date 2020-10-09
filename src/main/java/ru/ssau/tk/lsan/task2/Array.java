@@ -55,15 +55,28 @@ public class Array extends Numbers implements ArrayMethods {
     public Double[] newQuadraticEquationArray(double a, double b, double c) {
         double D = b * b - 4 * a * c;
         Double[] ans = new Double[]{};
-        if(a==0){
-            ans = new Double[]{-c/b};
-        }else if (D > 0) {
-            ans =  new Double[]{(-b - Math.sqrt(D)) / (2 * a), (-b + Math.sqrt(D)) / (2 * a)};
+        if (a == 0) {
+            ans = new Double[]{-c / b};
+        } else if (D > 0) {
+            ans = new Double[]{(-b - Math.sqrt(D)) / (2 * a), (-b + Math.sqrt(D)) / (2 * a)};
         } else if (D == 0) {
-            ans = new Double[]{-b/(2 * a)};
+            ans = new Double[]{-b / (2 * a)};
         } else if (D < 0) {
             ans = new Double[]{};
         }
         return ans;
+    }
+
+    @Override
+    public Double[] newNotDivisibleBy3Array(int size) {
+        Double arr[] = new Double[size];
+        for (int i = 0; i < size; i++) {
+            if ((2 * i + 1) % 3 == 0) {
+                continue;
+            } else {
+                arr[i] = 2 * i + 1d;
+            }
+        }
+        return arr;
     }
 }
