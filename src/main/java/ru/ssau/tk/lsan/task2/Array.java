@@ -55,10 +55,12 @@ public class Array extends Numbers implements ArrayMethods {
     public Double[] newQuadraticEquationArray(double a, double b, double c) {
         double D = b * b - 4 * a * c;
         Double[] ans = new Double[]{};
-        if (D > 0) {
+        if(a==0){
+            ans = new Double[]{-c/b};
+        }else if (D > 0) {
             ans =  new Double[]{(-b - Math.sqrt(D)) / (2 * a), (-b + Math.sqrt(D)) / (2 * a)};
         } else if (D == 0) {
-            ans = new Double[]{b/ (2 * a)};
+            ans = new Double[]{-b/(2 * a)};
         } else if (D < 0) {
             ans = new Double[]{};
         }

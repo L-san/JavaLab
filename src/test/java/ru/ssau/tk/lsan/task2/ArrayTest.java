@@ -62,10 +62,16 @@ public class ArrayTest {
     @Test
     public void testNewQuadraticEquationArray() {
         final Double[] newQuad = new Array().newQuadraticEquationArray(1d,2d,1d);
-        final Double[] quad = new Double[]{1d};
+        final Double[] newQuadZeroA = new Array().newQuadraticEquationArray(0d,2d,4d);
+        final Double[] quad = new Double[]{-1d};
+        final Double[] quadZeroA = new Double[]{-2d};
         assertEquals(newQuad.length,quad.length,delta);
+        assertEquals(newQuadZeroA.length,quadZeroA.length,delta);
         for (int i = 0; i <newQuad.length; i++) {
             assertEquals(newQuad[i], quad[i], delta);
+        }
+        for (int i = 0; i <newQuadZeroA.length; i++) {
+            assertEquals(newQuadZeroA[i], quadZeroA[i], delta);
         }
     }
 }
