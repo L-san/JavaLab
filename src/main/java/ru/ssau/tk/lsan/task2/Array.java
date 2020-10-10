@@ -69,12 +69,14 @@ public class Array extends Numbers implements ArrayMethods {
 
     @Override
     public Double[] newNotDivisibleBy3Array(int size) {
+
         Double arr[] = new Double[size];
-        for (int i = 0; i < size; i++) {
-            if ((2 * i + 1) % 3 == 0) {
-                continue;
+        arr[0] = 1d;
+        for (int i = 1; i < size; i++) {
+            if (i % 2 == 0) {
+                arr[i] = arr[i - 1] + 2d;
             } else {
-                arr[i] = 2 * i + 1d;
+                arr[i] = arr[i - 1] + 4d;
             }
         }
         return arr;

@@ -79,11 +79,17 @@ public class ArrayTest {
     public void testNewNotDivisibleBy3Array() {
         final Double[] newArr = new Array().newNotDivisibleBy3Array(6);
         final Double[] DivArr = new Double[]{1d,5d,7d,11d,13d,17d};
+        for(int i = 0; i<6; i++){
+            assertEquals(newArr[i], DivArr[i], delta);
+        }
     }
 
     @Test
     public void testNewAriphmeticProgressionArray() {
         final Double[] ariphArr = new Array().newAriphmeticProgressionArray(5,1,2);
-        final Double[] checkArr = new Double[]{1d, 3d, 5d, 7d, 9d};
+        final Double[] ariphCheck = new Double[]{1d,3d,5d,7d,9d};
+        for(int i = 0; i<5; i++){
+            assertEquals(ariphArr[i], ariphCheck[i], delta);
+        }
     }
 }
