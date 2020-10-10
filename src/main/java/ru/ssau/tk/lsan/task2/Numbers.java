@@ -14,5 +14,12 @@ public class Numbers {
             return (n < 2d ? (MemoryArr[n] = 1d) : (MemoryArr[n] = getFibonacci(n - 1, MemoryArr) + getFibonacci(n - 2, MemoryArr)));
         }
     }
+    public Double[] getAriphmeticProgression(int size, double a0, double d){
+        Double[] MemoryArr = new Double[size];
+        for(int i = 0; i<size; i++){
+            MemoryArr[i] = a0+i*d;
+        }
+        return MemoryArr;
+    }
 
 }

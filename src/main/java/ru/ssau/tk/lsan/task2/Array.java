@@ -79,4 +79,9 @@ public class Array extends Numbers implements ArrayMethods {
         }
         return arr;
     }
+
+    @Override
+    public Double[] newAriphmeticProgressionArray(int size, double firstElem, double difference) {
+        return getAriphmeticProgression(size, firstElem, difference);
+    }
 }

@@ -80,4 +80,10 @@ public class ArrayTest {
         final Double[] newArr = new Array().newNotDivisibleBy3Array(6);
         final Double[] DivArr = new Double[]{1d,5d,7d,11d,13d,17d};
     }
+
+    @Test
+    public void testNewAriphmeticProgressionArray() {
+        final Double[] ariphArr = new Array().newAriphmeticProgressionArray(5,1,2);
+        final Double[] checkArr = new Double[]{1d, 3d, 5d, 7d, 9d};
+    }
 }
