@@ -18,4 +18,10 @@ public class MyStringTest {
         testStr.getMyBytes("lmao");
         testStr.getMyBytes("лмао");
     }
+
+    @Test
+    public void testMyVoid() {
+        MyString testStr = new MyString();
+        testStr.myVoid();
+    }
 }

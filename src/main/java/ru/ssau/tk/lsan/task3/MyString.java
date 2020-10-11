@@ -15,4 +15,12 @@ public class MyString implements MyStringMethods {
             System.out.println(i);
         }
     }
+
+    @Override
+    public void myVoid() {
+        String str = "Internal void";
+        String obj = new String(str);
+        System.out.println("== operator answer is:" + (str == obj));
+        System.out.println("equals() answer is:" + (str.equals(obj)));
+    }
 }
