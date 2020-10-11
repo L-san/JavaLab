@@ -11,4 +11,11 @@ public class MyStringTest {
         MyString testStr = new MyString();
         testStr.printMyString("oh, here we go again");
     }
+
+    @Test
+    public void testGetMyBytes() {
+        MyString testStr = new MyString();
+        testStr.getMyBytes("lmao");
+        testStr.getMyBytes("лмао");
+    }
 }
