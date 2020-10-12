@@ -29,4 +29,14 @@ public class MyString implements MyStringMethods {
         String invStr = new StringBuilder(str).reverse().toString();
         return str.equals(invStr);
     }
+
+    @Override
+    public boolean isEqualStr(String str1, String str2) {
+        if (str1 != null && str2 != null) {
+            return str1.equalsIgnoreCase(str2);
+        } else {
+            return false;
+        }
+    }
+
 }

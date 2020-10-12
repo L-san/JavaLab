@@ -29,5 +29,14 @@ public class MyStringTest {
     public void testIsPalindrom() {
         MyString testStr = new MyString();
         assertEquals(testStr.isPalindrom("noon"), true);
+        assertEquals(testStr.isPalindrom("deed"), true);
+        assertEquals(testStr.isPalindrom("level"), true);
+    }
+
+    @Test
+    public void testIsEqualStr() {
+        MyString testStr = new MyString();
+        assertEquals(testStr.isEqualStr("Van Gough is an incredible painter","van gough is an incredible painter"), true);
+        assertEquals(testStr.isEqualStr(null,null),false);
     }
 }
