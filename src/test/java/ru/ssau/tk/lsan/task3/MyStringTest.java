@@ -24,4 +24,10 @@ public class MyStringTest {
         MyString testStr = new MyString();
         testStr.myVoid();
     }
+
+    @Test
+    public void testIsPalindrom() {
+        MyString testStr = new MyString();
+        assertEquals(testStr.isPalindrom("noon"), true);
+    }
 }

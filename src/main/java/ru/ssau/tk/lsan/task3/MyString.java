@@ -23,4 +23,10 @@ public class MyString implements MyStringMethods {
         System.out.println("== operator answer is:" + (str == obj));
         System.out.println("equals() answer is:" + (str.equals(obj)));
     }
+
+    @Override
+    public boolean isPalindrom(String str) {
+        String invStr = new StringBuilder(str).reverse().toString();
+        return str.equals(invStr);
+    }
 }
