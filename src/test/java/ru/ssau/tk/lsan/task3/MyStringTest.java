@@ -26,17 +26,17 @@ public class MyStringTest {
     }
 
     @Test
-    public void testIsPalindrom() {
+    public void testIsPalindromic() {
         MyString testStr = new MyString();
-        assertEquals(testStr.isPalindrom("noon"), true);
-        assertEquals(testStr.isPalindrom("deed"), true);
-        assertEquals(testStr.isPalindrom("level"), true);
+        assertTrue(testStr.isPalindromic("noon"));
+        assertTrue(testStr.isPalindromic("deed"));
+        assertTrue(testStr.isPalindromic("level"));
     }
 
     @Test
     public void testIsEqualStr() {
         MyString testStr = new MyString();
-        assertEquals(testStr.isEqualStr("Van Gough is an incredible painter","van gough is an incredible painter"), true);
-        assertEquals(testStr.isEqualStr(null,null),false);
+        assertTrue(testStr.isEqualStr("Van Gough is an incredible painter", "van gough is an incredible painter"));
+        assertFalse(testStr.isEqualStr(null, null));
     }
 }
