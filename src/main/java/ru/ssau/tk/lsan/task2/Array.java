@@ -70,7 +70,7 @@ public class Array extends Numbers implements ArrayMethods {
     @Override
     public Double[] newNotDivisibleBy3Array(int size) {
 
-        Double arr[] = new Double[size];
+        Double[] arr = new Double[size];
         arr[0] = 1d;
         for (int i = 1; i < size; i++) {
             if (i % 2 == 0) {
@@ -83,7 +83,14 @@ public class Array extends Numbers implements ArrayMethods {
     }
 
     @Override
-    public Double[] newAriphmeticProgressionArray(int size, double firstElem, double difference) {
+    public Double[] newArithmeticProgressionArray(int size, double firstElem, double difference) {
         return getAriphmeticProgression(size, firstElem, difference);
+    }
+
+    @Override
+    public void makeOppositeSign(Double[] arr) {
+        for(int i = 0; i<arr.length;i++){
+            arr[i]= arr[i]*(-1);
+        }
     }
 }

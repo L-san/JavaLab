@@ -1,13 +1,14 @@
 package ru.ssau.tk.lsan.task2;
 
 public interface ArrayMethods {
-    public Double[] newEmptyDoubleArray(int size);
-    public Double[] newFilledDoubleArray(int size);
-    public Double[] newOddArray(int size);
-    public Double[] newDescendingEvenArray(int size);
-    public Double[] newFibonacciArray(int size);
-    public Double[] newSqrIndexArray(int size);
-    public Double[] newQuadraticEquationArray(double a, double b, double c);
-    public Double[] newNotDivisibleBy3Array(int size);
-    public Double[] newAriphmeticProgressionArray(int size, double firstElem, double difference);
+    Double[] newEmptyDoubleArray(int size);
+    Double[] newFilledDoubleArray(int size);
+    Double[] newOddArray(int size);
+    Double[] newDescendingEvenArray(int size);
+    Double[] newFibonacciArray(int size);
+    Double[] newSqrIndexArray(int size);
+    Double[] newQuadraticEquationArray(double a, double b, double c);
+    Double[] newNotDivisibleBy3Array(int size);
+    Double[] newArithmeticProgressionArray(int size, double firstElem, double difference);
+    void makeOppositeSign(Double[] arr);
 }

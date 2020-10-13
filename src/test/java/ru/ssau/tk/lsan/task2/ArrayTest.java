@@ -86,10 +86,22 @@ public class ArrayTest {
 
     @Test
     public void testNewAriphmeticProgressionArray() {
-        final Double[] ariphArr = new Array().newAriphmeticProgressionArray(5,1,2);
+        final Double[] ariphArr = new Array().newArithmeticProgressionArray(5,1,2);
         final Double[] ariphCheck = new Double[]{1d,3d,5d,7d,9d};
         for(int i = 0; i<5; i++){
             assertEquals(ariphArr[i], ariphCheck[i], delta);
         }
+    }
+
+    @Test
+    public void testMakeOppositeSign() {
+        final Double[] arr = new Double[]{-1d,3d,-5d,7d,-9d};
+        final Array arrType = new Array();
+        arrType.makeOppositeSign(arr);
+        final Double[] check = new Double[]{1d,-3d,5d,-7d,9d};
+        for(int i = 0; i<5; i++){
+            assertEquals(arr[i],check[i]);
+        }
+
     }
 }
