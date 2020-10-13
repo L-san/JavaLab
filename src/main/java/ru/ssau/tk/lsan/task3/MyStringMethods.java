@@ -7,7 +7,7 @@ public interface MyStringMethods {
 
     public void myVoid();
 
-    public boolean isPalindrom(String str);
+    public boolean isPalindromic(String str);
 
     public boolean isEqualStr(String str1, String str2);
 }

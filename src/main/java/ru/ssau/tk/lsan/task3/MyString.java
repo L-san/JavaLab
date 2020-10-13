@@ -25,7 +25,7 @@ public class MyString implements MyStringMethods {
     }
 
     @Override
-    public boolean isPalindrom(String str) {
+    public boolean isPalindromic(String str) {
         String invStr = new StringBuilder(str).reverse().toString();
         return str.equals(invStr);
     }
