@@ -39,4 +39,10 @@ public class MyStringTest {
         assertTrue(testStr.isEqualStr("Van Gough is an incredible painter", "van gough is an incredible painter"));
         assertFalse(testStr.isEqualStr(null, null));
     }
+
+    @Test
+    public void testSymbolStrTest() {
+        MyString testStr = new MyString();
+        testStr.symbolStrTest();
+    }
 }
