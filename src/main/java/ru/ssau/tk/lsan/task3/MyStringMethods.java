@@ -12,4 +12,6 @@ public interface MyStringMethods {
     boolean isEqualStr(String str1, String str2);
 
     void symbolStrTest();
+
+    int findSubStringIndex(String str1, String str2);
 }

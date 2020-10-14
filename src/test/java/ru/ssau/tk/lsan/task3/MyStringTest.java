@@ -45,4 +45,11 @@ public class MyStringTest {
         MyString testStr = new MyString();
         testStr.symbolStrTest();
     }
+
+    @Test
+    public void testFindSubStringIndex() {
+        MyString testStr = new MyString();
+        assertEquals(testStr.findSubStringIndex ("abcabcabc","ca"),2);
+        assertEquals(testStr.findSubStringIndex ("abcabcabc","da"),-1);
+    }
 }
