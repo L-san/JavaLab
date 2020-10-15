@@ -59,4 +59,11 @@ public class MyStringTest {
         assertEquals(testStr.findSubStringIndexInHalf("abcabcabc","ca"),1);
         assertEquals(testStr.findSubStringIndexInHalf("abcabcabc","da"),-1);
     }
+
+    @Test
+    public void testFindSubStringIndexInRightHalf() {
+        MyString testStr = new MyString();
+        assertEquals(testStr.findSubStringIndexInRightHalf("abcabcabc","ca"),2);
+        assertEquals(testStr.findSubStringIndexInRightHalf("abcabcabc","da"),-1);
+    }
 }

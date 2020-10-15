@@ -61,4 +61,9 @@ public class MyString implements MyStringMethods {
     public int findSubStringIndexInHalf(String str1, String str2) {
         return str1.substring(str1.length()/2,str1.length()-1).indexOf(str2);
     }
+
+    @Override
+    public int findSubStringIndexInRightHalf(String str1, String str2) {
+        return str1.substring(0,(str1.length()+1)/2).lastIndexOf(str2);
+    }
 }

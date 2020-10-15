@@ -16,4 +16,6 @@ public interface MyStringMethods {
     int findSubStringIndex(String str1, String str2);
 
     int findSubStringIndexInHalf(String str1, String str2);
+
+    int findSubStringIndexInRightHalf(String str1, String str2);
 }
