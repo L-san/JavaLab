@@ -14,4 +14,6 @@ public interface MyStringMethods {
     void symbolStrTest();
 
     int findSubStringIndex(String str1, String str2);
+
+    int findSubStringIndexInHalf(String str1, String str2);
 }

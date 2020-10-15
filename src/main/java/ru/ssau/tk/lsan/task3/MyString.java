@@ -56,4 +56,9 @@ public class MyString implements MyStringMethods {
     public int findSubStringIndex(String str1, String str2) {
         return str1.indexOf(str2);
     }
+
+    @Override
+    public int findSubStringIndexInHalf(String str1, String str2) {
+        return str1.substring(str1.length()/2,str1.length()-1).indexOf(str2);
+    }
 }
