@@ -24,4 +24,6 @@ public interface MyStringMethods {
     int stringWithPrefixAndPostFixWithoutSpaces(String prefix, String[] str, String postfix);
 
     String replaceThatStringWith(String thatString, String whatToReplace, String replacement);
+
+    String stringFromTo(String str, int from, int to);
 }

@@ -84,4 +84,10 @@ public class MyStringTest {
         MyString testStr = new MyString();
         assertEquals(testStr.replaceThatStringWith("Eyjafjallajökull", "ja","la"),"Eylaflallajökull");
     }
+
+    @Test
+    public void testStringFromTo() {
+        MyString testStr = new MyString();
+        assertEquals(testStr.stringFromTo("aloha",1,4), "loh");
+    }
 }

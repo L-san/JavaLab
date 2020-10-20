@@ -94,4 +94,12 @@ public class MyString implements MyStringMethods {
         }
         return thatString;
     }
+
+    @Override
+    public String stringFromTo(String str, int from, int to) {
+        if(from<0){from = 0;}
+        if(to>str.length()){to=str.length();}
+        if(to<=from){return new String();}
+        return str.substring(from,to);
+    }
 }
