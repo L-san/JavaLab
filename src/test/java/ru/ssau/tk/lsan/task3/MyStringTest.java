@@ -66,4 +66,10 @@ public class MyStringTest {
         assertEquals(testStr.findSubStringIndexInRightHalf("abcabcabc","ca"),2);
         assertEquals(testStr.findSubStringIndexInRightHalf("abcabcabc","da"),-1);
     }
+
+    @Test
+    public void testStringWithPrefixAndPostFix() {
+        MyString testStr = new MyString();
+        assertEquals(testStr.stringWithPrefixAndPostFix("ca",new String[]{"cacao", "macao","aoaoaoa","caleo","cat"},"o"),2);
+    }
 }

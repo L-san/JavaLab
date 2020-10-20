@@ -46,7 +46,7 @@ public class MyString implements MyStringMethods {
         System.out.println("Символ\b№" + ++i);
         System.out.println("Символ\n№" + ++i);
         System.out.println("Символ\r№" + ++i);
-        System.out.println("Символ\'№" + ++i);
+        System.out.println("Символ'№" + ++i);
         System.out.println("Символ\"№" + ++i);
         System.out.println("Символ\\№" + ++i);
 
@@ -59,11 +59,23 @@ public class MyString implements MyStringMethods {
 
     @Override
     public int findSubStringIndexInHalf(String str1, String str2) {
-        return str1.substring(str1.length()/2,str1.length()-1).indexOf(str2);
+        return str1.substring(str1.length() / 2, str1.length() - 1).indexOf(str2);
     }
 
     @Override
     public int findSubStringIndexInRightHalf(String str1, String str2) {
-        return str1.substring(0,(str1.length()+1)/2).lastIndexOf(str2);
+        return str1.substring(0, (str1.length() + 1) / 2).lastIndexOf(str2);
+    }
+
+    public int stringWithPrefixAndPostFix(String prefix, String[] str, String postfix) {
+        int cnt = 0;
+        for (int i = 0; i < str.length; i++) {
+            if (str[i].startsWith(prefix)) {
+                if (str[i].endsWith(postfix)) {
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
     }
 }
