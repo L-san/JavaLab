@@ -72,4 +72,10 @@ public class MyStringTest {
         MyString testStr = new MyString();
         assertEquals(testStr.stringWithPrefixAndPostFix("ca",new String[]{"cacao", "macao","aoaoaoa","caleo","cat"},"o"),2);
     }
+
+    @Test
+    public void testStringWithPrefixAndPostFixWithoutSpaces() {
+        MyString testStr = new MyString();
+        assertEquals(testStr.stringWithPrefixAndPostFixWithoutSpaces("ca",new String[]{" cacao", "ma c ao","ao aoa oa","ca l eo","cat"},"o"),2);
+    }
 }

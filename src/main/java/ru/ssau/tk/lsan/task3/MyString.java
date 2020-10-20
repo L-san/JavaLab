@@ -78,4 +78,12 @@ public class MyString implements MyStringMethods {
         }
         return cnt;
     }
+
+    @Override
+    public int stringWithPrefixAndPostFixWithoutSpaces(String prefix, String[] str, String postfix){
+        for(int i = 0; i<str.length;i++){
+            str[i] = str[i].trim();
+        }
+        return stringWithPrefixAndPostFix(prefix, str, postfix);
+    }
 }

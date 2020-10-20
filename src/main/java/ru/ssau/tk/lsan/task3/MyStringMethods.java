@@ -18,4 +18,8 @@ public interface MyStringMethods {
     int findSubStringIndexInHalf(String str1, String str2);
 
     int findSubStringIndexInRightHalf(String str1, String str2);
+
+    int stringWithPrefixAndPostFix(String prefix, String[] str, String postfix);
+
+    int stringWithPrefixAndPostFixWithoutSpaces(String prefix, String[] str, String postfix);
 }
