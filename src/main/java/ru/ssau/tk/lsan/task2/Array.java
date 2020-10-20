@@ -93,4 +93,9 @@ public class Array extends Numbers implements ArrayMethods {
             arr[i]= arr[i]*(-1);
         }
     }
+
+    @Override
+    public Double[] newGeometricProgressionArray(int size, double firstElem, double difference) {
+        return getGeometricProgression(size, firstElem, difference);
+    }
 }

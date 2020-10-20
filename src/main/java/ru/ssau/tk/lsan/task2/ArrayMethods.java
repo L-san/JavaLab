@@ -11,4 +11,5 @@ public interface ArrayMethods {
     Double[] newNotDivisibleBy3Array(int size);
     Double[] newArithmeticProgressionArray(int size, double firstElem, double difference);
     void makeOppositeSign(Double[] arr);
+    Double[] newGeometricProgressionArray(int size, double firstElem, double difference);
 }

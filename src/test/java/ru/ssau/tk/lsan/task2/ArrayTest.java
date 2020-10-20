@@ -104,4 +104,13 @@ public class ArrayTest {
         }
 
     }
+
+    @Test
+    public void testNewGeometricProgressionArray() {
+        final Double[] ariphArr = new Array().newGeometricProgressionArray(5,1,2);
+        final Double[] ariphCheck = new Double[]{1d,2d,4d,8d,16d};
+        for(int i = 0; i<5; i++){
+            assertEquals(ariphArr[i], ariphCheck[i], delta);
+        }
+    }
 }

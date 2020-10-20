@@ -23,4 +23,12 @@ public class Numbers {
         return MemoryArr;
     }
 
+        Double[] MemoryArr = new Double[size];
+        MemoryArr[0] = a0;
+        for (int i = 1; i < size; i++) {
+            MemoryArr[i] = MemoryArr[i-1]*d;
+        }
+        return MemoryArr;
+    }
+
 }
