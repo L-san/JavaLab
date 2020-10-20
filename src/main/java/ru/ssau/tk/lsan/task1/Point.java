@@ -16,4 +16,9 @@ public class Point {
     public double length() {
         return sqrt(this.X * this.X + this.Y * this.Y + this.Z * this.Z);
     }
+
+    @Override
+    public String toString() {
+        return new String("["+X+", "+Y+", "+Z+"]");
+    }
 }
