@@ -80,10 +80,18 @@ public class MyString implements MyStringMethods {
     }
 
     @Override
-    public int stringWithPrefixAndPostFixWithoutSpaces(String prefix, String[] str, String postfix){
-        for(int i = 0; i<str.length;i++){
+    public int stringWithPrefixAndPostFixWithoutSpaces(String prefix, String[] str, String postfix) {
+        for (int i = 0; i < str.length; i++) {
             str[i] = str[i].trim();
         }
         return stringWithPrefixAndPostFix(prefix, str, postfix);
+    }
+
+    @Override
+    public String replaceThatStringWith(String thatString, String whatToReplace, String replacement) {
+        if(thatString.contains(whatToReplace)){
+            thatString = thatString.replaceAll(whatToReplace, replacement);
+        }
+        return thatString;
     }
 }

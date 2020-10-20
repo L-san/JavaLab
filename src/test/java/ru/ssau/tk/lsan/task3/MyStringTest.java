@@ -49,33 +49,39 @@ public class MyStringTest {
     @Test
     public void testFindSubStringIndex() {
         MyString testStr = new MyString();
-        assertEquals(testStr.findSubStringIndex ("abcabcabc","ca"),2);
-        assertEquals(testStr.findSubStringIndex ("abcabcabc","da"),-1);
+        assertEquals(testStr.findSubStringIndex("abcabcabc", "ca"), 2);
+        assertEquals(testStr.findSubStringIndex("abcabcabc", "da"), -1);
     }
 
     @Test
     public void testFindSubStringIndexInHalf() {
         MyString testStr = new MyString();
-        assertEquals(testStr.findSubStringIndexInHalf("abcabcabc","ca"),1);
-        assertEquals(testStr.findSubStringIndexInHalf("abcabcabc","da"),-1);
+        assertEquals(testStr.findSubStringIndexInHalf("abcabcabc", "ca"), 1);
+        assertEquals(testStr.findSubStringIndexInHalf("abcabcabc", "da"), -1);
     }
 
     @Test
     public void testFindSubStringIndexInRightHalf() {
         MyString testStr = new MyString();
-        assertEquals(testStr.findSubStringIndexInRightHalf("abcabcabc","ca"),2);
-        assertEquals(testStr.findSubStringIndexInRightHalf("abcabcabc","da"),-1);
+        assertEquals(testStr.findSubStringIndexInRightHalf("abcabcabc", "ca"), 2);
+        assertEquals(testStr.findSubStringIndexInRightHalf("abcabcabc", "da"), -1);
     }
 
     @Test
     public void testStringWithPrefixAndPostFix() {
         MyString testStr = new MyString();
-        assertEquals(testStr.stringWithPrefixAndPostFix("ca",new String[]{"cacao", "macao","aoaoaoa","caleo","cat"},"o"),2);
+        assertEquals(testStr.stringWithPrefixAndPostFix("ca", new String[]{"cacao", "macao", "aoaoaoa", "caleo", "cat"}, "o"), 2);
     }
 
     @Test
     public void testStringWithPrefixAndPostFixWithoutSpaces() {
         MyString testStr = new MyString();
-        assertEquals(testStr.stringWithPrefixAndPostFixWithoutSpaces("ca",new String[]{" cacao", "ma c ao","ao aoa oa","ca l eo","cat"},"o"),2);
+        assertEquals(testStr.stringWithPrefixAndPostFixWithoutSpaces("ca", new String[]{" cacao", "ma c ao", "ao aoa oa", "ca l eo", "cat"}, "o"), 2);
+    }
+
+    @Test
+    public void testReplaceThatStringWith() {
+        MyString testStr = new MyString();
+        assertEquals(testStr.replaceThatStringWith("Eyjafjallajökull", "ja","la"),"Eylaflallajökull");
     }
 }
