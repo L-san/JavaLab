@@ -23,6 +23,7 @@ public class Numbers {
         return MemoryArr;
     }
 
+    public Double[] getGeometricProgression(int size, double a0, double d) {
         Double[] MemoryArr = new Double[size];
         MemoryArr[0] = a0;
         for (int i = 1; i < size; i++) {
