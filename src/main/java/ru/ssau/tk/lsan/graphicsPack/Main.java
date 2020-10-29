@@ -5,6 +5,7 @@ import javafx.application.Application;
 //import javafx.scene.Parent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 //import java.io.IOException;
@@ -19,6 +20,8 @@ public class Main extends Application {
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Group root = new World().getWorldObjectsAsGroup();
         Scene scene = new Scene(root, 1280, 720);
+
+
 
         PerspectiveCamera camera = new PerspectiveCamera(false);
         camera.setTranslateX(0);
