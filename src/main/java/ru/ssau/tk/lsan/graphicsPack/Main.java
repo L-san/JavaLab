@@ -1,4 +1,4 @@
-package sample;
+package ru.ssau.tk.lsan.graphicsPack;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -27,9 +27,9 @@ public class Main extends Application {
         box1.setHeight(300.0);
         box1.setDepth(300.0);
 
-        PhongMaterial phongMaterial = new PhongMaterial();
-        phongMaterial.setDiffuseMap(new Image(getClass().getResource("diffuse.jpg").toExternalForm()));
-        box1.setMaterial(phongMaterial);
+        //PhongMaterial phongMaterial = new PhongMaterial();
+        //phongMaterial.setDiffuseMap(new Image(getClass().getResource("diffuse.jpg").toExternalForm()));
+        //box1.setMaterial(phongMaterial);
 
         box1.setTranslateX(320);
         box1.setTranslateY(200);
