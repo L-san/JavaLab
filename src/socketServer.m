@@ -1,4 +1,5 @@
 t = tcpip('localhost',4012, 'NetworkRole', 'server');
+%%включать сначала сервер, потом клиент!!
 fopen(t);
 cnt = 0;
 while(cnt<10)
