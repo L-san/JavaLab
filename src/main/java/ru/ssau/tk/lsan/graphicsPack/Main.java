@@ -6,6 +6,7 @@ import javafx.scene.Group;
 //import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.stage.Stage;
 import javafx.scene.shape.Box;
@@ -26,16 +27,12 @@ public class Main extends Application {
         box1.setWidth(300.0);
         box1.setHeight(300.0);
         box1.setDepth(300.0);
-
-        //PhongMaterial phongMaterial = new PhongMaterial();
-        //phongMaterial.setDiffuseMap(new Image(getClass().getResource("diffuse.jpg").toExternalForm()));
-        //box1.setMaterial(phongMaterial);
-
-        box1.setTranslateX(320);
-        box1.setTranslateY(200);
-        box1.setTranslateZ(200);
-
-        box1.setRotate(30);
+        PhongMaterial phongMaterial = new PhongMaterial();
+        phongMaterial.setDiffuseColor(Color.POWDERBLUE);
+        box1.setMaterial(phongMaterial);
+        box1.setTranslateX(670);
+        box1.setTranslateY(360);
+        box1.setTranslateZ(360);
         box1.setDrawMode(DrawMode.FILL);
         Group root = new Group(box1);
         Scene scene = new Scene(root, 1280, 720);
