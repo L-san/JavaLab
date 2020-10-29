@@ -1,6 +1,7 @@
 package ru.ssau.tk.lsan.graphicsPack;
 
 import javafx.animation.RotateTransition;
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -23,22 +24,19 @@ public class World {
         box.setTranslateY(360);
         box.setTranslateZ(360);
         box.setDrawMode(DrawMode.FILL);
-
-        RotateTransition rotate = new RotateTransition();
-        box.setRotationAxis(Rotate.Y_AXIS);
-        rotate.setByAngle(360);
-        rotate.setCycleCount(500);
-        rotate.setDuration(Duration.millis(10000));
-        box.setRotate(100);
-        rotate.setAutoReverse(true);
-        rotate.setNode(box);
-        rotate.play();
-
         return box;
     }
 
-
-    protected final Group getWorldObjectsAsGroup() {
-        return new Group(newBox());
+    protected final void rotateBox(Box box, double duration, double angle) {
+        RotateTransition rotate = new RotateTransition();
+        Point3D rotationAxis = new Point3D(1d,1d,1d);
+        box.setRotationAxis(rotationAxis);
+        rotate.setByAngle(angle);
+        //rotate.setCycleCount(500);
+        //rotate.setDuration(Duration.millis(10000));
+        rotate.setDuration(Duration.millis(duration));
+        rotate.setAutoReverse(true);
+        rotate.setNode(box);
+        rotate.play();
     }
 }
