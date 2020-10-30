@@ -31,5 +31,13 @@ public class MadgwickAlgorithmTest {
 
     @Test
     public void testQuat_mult() {
+        double[] oneQuat = new double[]{1d, 0d, 0d, 0d};
+        double[] twoQuat = new double[]{0.1601, 0.3203, 0.4804, 0.8006};
+        double[] ans = new double[]{0.1601, 0.3203, 0.4804, 0.8006};
+        double[] ansArr = test.quat_mult(oneQuat, twoQuat);
+        for (int i = 0; i < 4; i++) {
+            assertEquals(ans[i], ansArr[i], delta);
+        }
+
     }
 }

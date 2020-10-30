@@ -22,7 +22,13 @@ public class MadgwickAlgorithm {
     }
 
     protected double[] quat_mult(double[] a, double[] b) {
-        return new double[]{0,0,0};
+        double[] Q = new double[4];
+        double[] aCrossB = cross(new double[]{a[1], a[2], a[3]}, new double[]{b[1], b[2], b[3]});
+        Q[0] = a[0] * b[0] - dot(new double[]{a[1], a[2], a[3]}, new double[]{b[1], b[2], b[3]});
+        Q[1] = a[0] * b[1] + aCrossB[0] + b[0] * a[1];
+        Q[2] = a[0] * b[2] + aCrossB[1] + b[0] * a[2];
+        Q[3] = a[0] * b[3] + aCrossB[2] + b[0] * a[3];
+        return Q;
     }
 
     protected double calculatePosition(double[] q_est, double[] a) {
