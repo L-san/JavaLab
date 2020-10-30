@@ -40,4 +40,14 @@ public class MadgwickAlgorithmTest {
         }
 
     }
+
+    @Test
+    public void testQuat_conj() {
+        double[] twoQuat = new double[]{0.1601, 0.3203, 0.4804, 0.8006};
+        double[] ansArr = test.quat_conj(twoQuat);
+        double[] ans = new double[]{0.1601, -0.3203, -0.4804, -0.8006};
+        for (int i = 0; i < 4; i++) {
+            assertEquals(ansArr[i], ans[i], delta);
+        }
+    }
 }

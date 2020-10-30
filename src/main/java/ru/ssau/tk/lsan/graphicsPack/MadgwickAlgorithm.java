@@ -30,8 +30,11 @@ public class MadgwickAlgorithm {
         Q[3] = a[0] * b[3] + aCrossB[2] + b[0] * a[3];
         return Q;
     }
+    protected double[] quat_conj(double[] a) {
+        return new double[]{a[0],-a[1],-a[2],-a[3]};
+    }
 
-    protected double calculatePosition(double[] q_est, double[] a) {
+    protected double calculatePosition(double[] q_est, double[] a,double[] m) {
         double[] f_a = new double[3];
         double[][] J_a = new double[3][4];
 
@@ -52,6 +55,7 @@ public class MadgwickAlgorithm {
         J_a[2][3] = -4 * q_est[2];
         J_a[2][4] = 0;
 
+        double[] h = quat_mult(q_est,new double[]{0d,m[0],m[1],m[2]});
         return 0d;
     }
 }
