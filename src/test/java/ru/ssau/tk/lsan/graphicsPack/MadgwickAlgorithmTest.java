@@ -50,4 +50,17 @@ public class MadgwickAlgorithmTest {
             assertEquals(ansArr[i], ans[i], delta);
         }
     }
+
+    @Test
+    public void testMatrixMultiplication() {
+        double[][] m1 = new double[][]{{1,2,3},{4,5,7}};
+        double[][] m2 = new double[][]{{0,5},{6,2},{3,1}};
+        double[][] ans = new double[][]{{21,12},{51,37}};
+        double[][] ansArr = test.matrixMultiplication(m1,m2,2,3,2);
+        for(int i = 0;i<2;i++){
+            for(int j = 0; j<2;j++){
+                assertEquals(ansArr[i][j],ans[i][j],delta);
+            }
+        }
+    }
 }
