@@ -8,7 +8,6 @@ import java.util.concurrent.Exchanger;
 public class RotationManager extends Thread {
     private static Exchanger<Double> exchanger;
     protected Double message;
-    protected Double previousMsg = 0d;
     protected World world;
     protected Box box;
 
@@ -26,23 +25,27 @@ public class RotationManager extends Thread {
     public void run() {
         try {
             message = exchanger.exchange(message);
-            System.out.println(previousMsg);
             Runnable updater = () -> {
                 if (message != null) {
-                    previousMsg = previousMsg + message;
-                    updateNodes(1d, previousMsg);
+                    updateNodes(1d, message);
                 }
             };
-            while(true){
-                message = exchanger.exchange(message);
-                System.out.println(previousMsg);
-                Platform.runLater(updater);
+            try {
+                while (true) {
+                    message = exchanger.exchange(message);
+                    if (message == -1) {
+                        throw new IllegalArgumentException("There's no input data");
+                    }
+                    System.out.println(message);
+                    Platform.runLater(updater);
+                }
+
+            } finally {
+                System.out.println("Rotation stopped...");
             }
 
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | IllegalArgumentException e) {
             System.err.println(e.getMessage());
         }
     }
-
-
 }
