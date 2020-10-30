@@ -3,10 +3,12 @@ package ru.ssau.tk.lsan.graphicsPack.Socket;
 import java.io.*;
 import java.net.Socket;
 
-public class Client {
+public class Client extends Thread{
     private static Socket clientSocket;
     private static BufferedReader in;
-    public static void main(String[] args) {
+
+    @Override
+    public void run() {
         try {
             try {
                 clientSocket = new Socket("localhost", 4012);

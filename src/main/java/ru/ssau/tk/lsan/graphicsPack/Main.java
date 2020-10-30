@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 //import java.io.IOException;
 
 import javafx.scene.PerspectiveCamera;
+import ru.ssau.tk.lsan.graphicsPack.Socket.Client;
 
 
 public class Main extends Application {
@@ -37,7 +38,9 @@ public class Main extends Application {
     }
 
 
-   // public static void main(String[] args) {
-     //   launch(args);
-   // }
+    public static void main(String[] args) {
+        //launch(args);
+        Thread clientSocketThread = new Client();
+        clientSocketThread.start();
+    }
 }
