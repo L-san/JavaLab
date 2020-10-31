@@ -127,7 +127,6 @@ public class MadgwickAlgorithm {
                 c[i] = 0;
             }
         }
-
         return c;
     }
 
@@ -208,11 +207,11 @@ public class MadgwickAlgorithm {
         double[] omega_b = matrixSum(omega_eps, dzta, 4);
         double[] omega_c = matrixDivision(new double[]{0d, g[0], g[1], g[2]}, omega_b, 4);
 
-        q_omega_dot[0] = -0.5 * dot(new double[]{q_est[1], q_est[2], q_est[3]}, new double[]{omega_b[1], omega_b[2], omega_b[3]});
-        double[] crossQOmega = cross(new double[]{q_est[1], q_est[2], q_est[3]}, new double[]{omega_b[1], omega_b[2], omega_b[3]});
-        q_omega_dot[1] = 0.5 * (q_est[0] * omega_b[1] + crossQOmega[1]);
-        q_omega_dot[2] = 0.5 * (q_est[0] * omega_b[2] + crossQOmega[2]);
-        q_omega_dot[3] = 0.5 * (q_est[0] * omega_b[3] + crossQOmega[3]);
+        q_omega_dot[0] = -0.5 * dot(new double[]{q_est[1], q_est[2], q_est[3]}, new double[]{omega_c[1], omega_c[2], omega_c[3]});
+        double[] crossQOmega = cross(new double[]{q_est[1], q_est[2], q_est[3]}, new double[]{omega_c[1], omega_c[2], omega_c[3]});
+        q_omega_dot[1] = 0.5 * (q_est[0] * omega_c[1] + crossQOmega[1]);
+        q_omega_dot[2] = 0.5 * (q_est[0] * omega_c[2] + crossQOmega[2]);
+        q_omega_dot[3] = 0.5 * (q_est[0] * omega_c[3] + crossQOmega[3]);
         q_omega = matrixSum(q_omega, matrixMultiplication(q_omega_dot, delta_T));
 
         double[] q_est_dot = matrixDivision(q_omega, matrixMultiplication(q_eps_dot, bta), 4);
