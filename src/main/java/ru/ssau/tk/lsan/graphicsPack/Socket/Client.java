@@ -4,13 +4,15 @@ import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.Exchanger;
 
-public class Client extends Thread{
+public class Client extends Thread {
     private static Socket clientSocket;
     private static BufferedReader in;
     private static Exchanger<Double> exchanger;
     protected double[] message;
+
     public Client(Exchanger<Double> ex) {
         exchanger = ex;
+        this.message = new double[18];
     }
 
     @Override
@@ -20,23 +22,22 @@ public class Client extends Thread{
                 clientSocket = new Socket("0.0.0.0", 4012);
                 System.out.println("Connection started");
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                int msgFlag = 1;
-                String str = "";
-                while (msgFlag != -1) {
-                    StringBuffer sBuff = new StringBuffer(in.readLine());
-                    if (str.isEmpty()) {
-                        msgFlag = -1;
-                    } else {
-                        message = parser(str);
-                        exchanger.exchange(10d);
+                try  {
+                    String line;
+                    while ((line = in.readLine())!=null){
+                         parser(line);//message =
+                       // exchanger.exchange(10d);
                     }
+                }
+                catch (IOException e) {//| InterruptedException
+                    e.printStackTrace();
                 }
             } finally {
                 System.out.println("Connection lost");
                 clientSocket.close();
                 in.close();
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException  e) {
             System.err.println(e.getMessage());
         }
     }
@@ -46,9 +47,11 @@ public class Client extends Thread{
         //GyroX_H, GyroX_L, GyroY_H, GyroY_L, GyroZ_H, GyroZ_L,
         //MagX_H, MagX_L, MagY_H, MagY_L, MagZ_H, MagZ_L
         double[] parsedArr = new double[str.length() / 2];
-        for (int i = 0; i < str.length() - 1; i+=2) {
-            parsedArr[i] = Double.parseDouble(str.substring(i, i + 1));
+        for (int i = 0; i < str.length() - 1; i += 1) {
+            parsedArr[i] =  Double.parseDouble(str.substring(i, i + 1));
+            System.out.print(parsedArr[i]);
         }
+        System.out.print('\n');
         return parsedArr;
     }
 }

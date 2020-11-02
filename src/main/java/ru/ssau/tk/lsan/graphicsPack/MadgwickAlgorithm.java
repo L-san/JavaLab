@@ -9,12 +9,12 @@ public class MadgwickAlgorithm {
     private double omega_eps_prev;
     private double[] q_eps_dot;
 
-    MadgwickAlgorithm() {
+    public MadgwickAlgorithm() {
         this.bta = 0d;
         this.dzta = 0d;
     }
 
-    MadgwickAlgorithm(double[] q_est_0, double omega_eps_prev_0, double bta0, double dzta0, double delta_T0) {
+    public MadgwickAlgorithm(double[] q_est_0, double omega_eps_prev_0, double bta0, double dzta0, double delta_T0) {
         this.bta = bta0;
         this.dzta = dzta0;
         this.delta_T = delta_T0;
