@@ -47,6 +47,14 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        launch(args);
+       // launch(args);
+        Exchanger<Double> exchanger = new Exchanger<>();
+        Thread clientSocketThread = new Client(exchanger);
+
+        clientSocketThread.setDaemon(true);
+        clientSocketThread.start();
     }
 }
+//todo парсинг сообщений с сокетов
+//todo не забыть про нормализацию показаний
+//todo перечитать еще раз алгоритм, посмотреть, как работает через сокеты
