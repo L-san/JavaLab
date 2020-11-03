@@ -2,17 +2,21 @@ package ru.ssau.tk.lsan.graphicsPack.Socket;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Exchanger;
 
 public class Client extends Thread {
     private static Socket clientSocket;
-    private static BufferedReader in;
+    private static InputStream in;
     private static Exchanger<Double> exchanger;
-    protected double[] message;
+    protected int[] message;
 
     public Client(Exchanger<Double> ex) {
         exchanger = ex;
-        this.message = new double[18];
+        this.message = new int[18];
     }
 
     @Override
@@ -21,15 +25,19 @@ public class Client extends Thread {
             try {
                 clientSocket = new Socket("0.0.0.0", 4012);
                 System.out.println("Connection started");
-                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                try  {
-                    String line;
-                    while ((line = in.readLine())!=null){
-                         parser(line);//message =
-                       // exchanger.exchange(10d);
+                in = clientSocket.getInputStream();
+                try {
+                    byte[] line;
+                    while ((line = in.readNBytes(1))[0] != (byte) '\n')
+                        ; // в буффере может лежать полстроки и мусор, потому скипнем сразу до следующей
+                    while (true) {
+                        message = reader(4, 2);
+                        for (int i = 0; i < message.length; i++) {
+                            System.out.println(message[i]);
+                        }
+                        // exchanger.exchange(10d);
                     }
-                }
-                catch (IOException e) {//| InterruptedException
+                } catch (IOException e) {//| InterruptedException
                     e.printStackTrace();
                 }
             } finally {
@@ -37,21 +45,53 @@ public class Client extends Thread {
                 clientSocket.close();
                 in.close();
             }
-        } catch (IOException  e) {
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    protected double[] parser(String str) {
+    protected double[] parser(byte[] line) {
         //AccX_H, AccX_L, AccY_H, AccY_L, AccZ_H, AccZ_L,
         //GyroX_H, GyroX_L, GyroY_H, GyroY_L, GyroZ_H, GyroZ_L,
         //MagX_H, MagX_L, MagY_H, MagY_L, MagZ_H, MagZ_L
-        double[] parsedArr = new double[str.length() / 2];
-        for (int i = 0; i < str.length() - 1; i += 1) {
-            parsedArr[i] =  Double.parseDouble(str.substring(i, i + 1));
-            System.out.print(parsedArr[i]);
+        double[] out = new double[line.length];
+        for (int i = 0; i < line.length; i++) {
+            out[i] = (char) line[i];
         }
-        System.out.print('\n');
-        return parsedArr;
+        return out;
+    }
+
+    protected int[] reader(int length, int len) {
+        if (len != 2) {
+            throw new IllegalArgumentException("Forbidden len");
+        }
+        byte[] line;
+        byte[] out = new byte[length];
+        int[] outInt = new int[length/2];
+        int j = 0;
+        try {
+            while ((line = in.readNBytes(1))[0] != (byte) '\n') {
+                if (j >= length) {
+                    System.out.println("Array's length is not " + length);
+                    break;
+                }
+                out[j++] = line[0];
+            }
+            int k = 0;
+            int i = 0;
+            while(k<length/2){
+                outInt[k] = toInt(out[i], out[i+1]);
+                i = i + len;
+                k = k+1;
+            }
+        } catch (IOException|IllegalArgumentException e) {//| InterruptedException
+            e.printStackTrace();
+        }
+        return outInt;
+    }
+
+    public int toInt(byte hb, byte lb) {
+        ByteBuffer bb = ByteBuffer.wrap(new byte[]{lb,hb});
+        return bb.getShort();
     }
 }
