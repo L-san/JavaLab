@@ -31,7 +31,7 @@ public class Client extends Thread {
                     while ((line = in.readNBytes(1))[0] != (byte) '\n')
                         ; // в буффере может лежать полстроки и мусор, потому скипнем сразу до следующей
                     while (true) {
-                        message = reader(4, 2);
+                        message = reader(36, 2);
                         for (int i = 0; i < message.length; i++) {
                             System.out.println(message[i]);
                         }
@@ -67,31 +67,53 @@ public class Client extends Thread {
         }
         byte[] line;
         byte[] out = new byte[length];
-        int[] outInt = new int[length/2];
+        int[] outInt = new int[length / 2];
         int j = 0;
+        int cnt = 0;
+        int k = 0;
+        int flag = 0;
         try {
-            while ((line = in.readNBytes(1))[0] != (byte) '\n') {
-                if (j >= length) {
-                    System.out.println("Array's length is not " + length);
-                    break;
+            while (flag != -1) {
+                while ((line = in.readNBytes(1))[0] != (byte) '\0') {
+                    if (line[0] == (byte) '\n') {
+                        flag = -1;
+                        break;
+                    }
+                    if (j >= length) {
+                        System.out.println("Array's length is not " + length);
+                        break;
+                    }
+                    out[j] = line[0];
+                    j++;
+                    cnt++;
                 }
-                out[j++] = line[0];
+
+                if (cnt == 2) {
+                    outInt[k++] = toInt(out[j - 2], out[j - 1]);
+                } else if(cnt==1&&j==1){
+                    j++;
+                    outInt[k++] = toInt((byte) 0, out[j - 2]);
+                }else{
+                    j++;
+                    outInt[k++] = toInt(out[j - 1], out[j - 2]);
+                }
+                cnt = 0;
             }
-            int k = 0;
-            int i = 0;
+
+           /* int i = 0;
             while(k<length/2){
                 outInt[k] = toInt(out[i], out[i+1]);
                 i = i + len;
                 k = k+1;
-            }
-        } catch (IOException|IllegalArgumentException e) {//| InterruptedException
+            }*/
+        } catch (IOException | IllegalArgumentException e) {//| InterruptedException
             e.printStackTrace();
         }
         return outInt;
     }
 
     public int toInt(byte hb, byte lb) {
-        ByteBuffer bb = ByteBuffer.wrap(new byte[]{lb,hb});
+        ByteBuffer bb = ByteBuffer.wrap(new byte[]{hb, lb});
         return bb.getShort();
     }
 }
