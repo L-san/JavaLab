@@ -12,11 +12,10 @@ public class Client extends Thread {
     private static Socket clientSocket;
     private static InputStream in;
     private static Exchanger<Double> exchanger;
-    protected int[] message;
+    protected double[] message;
 
     public Client(Exchanger<Double> ex) {
         exchanger = ex;
-        this.message = new int[18];
     }
 
     @Override
@@ -31,11 +30,11 @@ public class Client extends Thread {
                     while ((line = in.readNBytes(1))[0] != (byte) '\n')
                         ; // в буффере может лежать полстроки и мусор, потому скипнем сразу до следующей
                     while (true) {
-                        message = reader(36, 2);
-                        for (int i = 0; i < message.length; i++) {
-                            System.out.println(message[i]);
-                        }
-                        // exchanger.exchange(10d);
+                        message = reader(4, 2);
+                       // for (int i = 0; i < message.length; i++) {
+                        //    System.out.println(message[i]);
+                       // }
+                        exchanger.exchange(message[1]);
                     }
                 } catch (IOException e) {//| InterruptedException
                     e.printStackTrace();
@@ -45,7 +44,7 @@ public class Client extends Thread {
                 clientSocket.close();
                 in.close();
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -61,55 +60,47 @@ public class Client extends Thread {
         return out;
     }
 
-    protected int[] reader(int length, int len) {
+    protected double[] reader(int length, int len) {
         if (len != 2) {
             throw new IllegalArgumentException("Forbidden len");
         }
         byte[] line;
         byte[] out = new byte[length];
-        int[] outInt = new int[length / 2];
+        double[] outDouble = new double[length / 2];
         int j = 0;
         int cnt = 0;
         int k = 0;
         int flag = 0;
         try {
             while (flag != -1) {
-                while ((line = in.readNBytes(1))[0] != (byte) '\0') {
-                    if (line[0] == (byte) '\n') {
-                        flag = -1;
-                        break;
-                    }
-                    if (j >= length) {
-                        System.out.println("Array's length is not " + length);
-                        break;
-                    }
+                line = in.readNBytes(1);
+                if (line[0] == (byte) '\n') {
+                    flag = -1;
+                }
+                if (j >= length) {
+                    //System.out.println("Array's length is not " + length);
+                    break;
+                }
+                if ((line[0] == (byte) '\0')&&(flag != -1)) {
+                    out[j] = 0;
+                    j++;
+                    ++cnt;
+                } else if((line[0] != (byte) '\0')&&(flag != -1)){
                     out[j] = line[0];
                     j++;
-                    cnt++;
+                    ++cnt;
+                }
+                if (cnt == 2) {
+                    outDouble[k++] = (double) toInt(out[j - 2], out[j - 1]);
+                    cnt = 0;
                 }
 
-                if (cnt == 2) {
-                    outInt[k++] = toInt(out[j - 2], out[j - 1]);
-                } else if(cnt==1&&j==1){
-                    j++;
-                    outInt[k++] = toInt((byte) 0, out[j - 2]);
-                }else{
-                    j++;
-                    outInt[k++] = toInt(out[j - 1], out[j - 2]);
-                }
-                cnt = 0;
             }
 
-           /* int i = 0;
-            while(k<length/2){
-                outInt[k] = toInt(out[i], out[i+1]);
-                i = i + len;
-                k = k+1;
-            }*/
-        } catch (IOException | IllegalArgumentException e) {//| InterruptedException
+        } catch (IOException | IllegalArgumentException e) {//
             e.printStackTrace();
         }
-        return outInt;
+        return outDouble;
     }
 
     public int toInt(byte hb, byte lb) {
