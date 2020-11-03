@@ -8,6 +8,8 @@ import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 import ru.ssau.tk.lsan.graphicsPack.Socket.Client;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Exchanger;
 
 //import javafx.fxml.FXMLLoader;
@@ -25,10 +27,17 @@ public class Main extends Application {
         root.getChildren().add(box);
 
         Scene scene = new Scene(root, 1280, 720);
-
-        Exchanger<Double> exchanger = new Exchanger<>();
+        ArrayBlockingQueue<Double> exchanger = new ArrayBlockingQueue<Double>(9);
         Thread clientSocketThread = new Client(exchanger);
-        Thread rotationManager = new RotationManager(exchanger, myWorld, box);
+
+        double dzta = 8.660254037844386e-04;
+        double bta = 8.660254037844386e-04;
+        double[] q_est = new double[]{1,0,0,0};
+        double omega_eps_prev = 0;
+        double delta_T = 0.1;
+
+        MadgwickAlgorithm initial = new MadgwickAlgorithm(q_est,omega_eps_prev,bta,dzta,delta_T);
+        Thread rotationManager = new RotationManager(exchanger, myWorld, box,initial,9);
 
         clientSocketThread.setDaemon(true);
         rotationManager.setDaemon(true);
@@ -47,12 +56,12 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-       // launch(args);
-        Exchanger<Double> exchanger = new Exchanger<>();
+        launch(args);
+       /* Exchanger<Double> exchanger = new Exchanger<>();
         Thread clientSocketThread = new Client(exchanger);
 
         clientSocketThread.setDaemon(true);
-        clientSocketThread.start();
+        clientSocketThread.start();*/
     }
 }
 //todo парсинг сообщений с сокетов

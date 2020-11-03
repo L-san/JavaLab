@@ -3,18 +3,15 @@ package ru.ssau.tk.lsan.graphicsPack.Socket;
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.Exchanger;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Client extends Thread {
     private static Socket clientSocket;
     private static InputStream in;
-    private static Exchanger<Double> exchanger;
+    private static ArrayBlockingQueue<Double> exchanger;
     protected double[] message;
 
-    public Client(Exchanger<Double> ex) {
+    public Client(ArrayBlockingQueue<Double> ex) {
         exchanger = ex;
     }
 
@@ -30,11 +27,13 @@ public class Client extends Thread {
                     while ((line = in.readNBytes(1))[0] != (byte) '\n')
                         ; // в буффере может лежать полстроки и мусор, потому скипнем сразу до следующей
                     while (true) {
-                        message = reader(4, 2);
-                       // for (int i = 0; i < message.length; i++) {
-                        //    System.out.println(message[i]);
-                       // }
-                        exchanger.exchange(message[1]);
+                        message = reader(18, 2);
+                        for (int i = 0; i < message.length; i++) {
+                            exchanger.put(message[i]);
+                            //System.out.print(message[i]+" ");
+                        }
+                        exchanger.put(666d);
+
                     }
                 } catch (IOException e) {//| InterruptedException
                     e.printStackTrace();
@@ -47,17 +46,6 @@ public class Client extends Thread {
         } catch (IOException | InterruptedException e) {
             System.err.println(e.getMessage());
         }
-    }
-
-    protected double[] parser(byte[] line) {
-        //AccX_H, AccX_L, AccY_H, AccY_L, AccZ_H, AccZ_L,
-        //GyroX_H, GyroX_L, GyroY_H, GyroY_L, GyroZ_H, GyroZ_L,
-        //MagX_H, MagX_L, MagY_H, MagY_L, MagZ_H, MagZ_L
-        double[] out = new double[line.length];
-        for (int i = 0; i < line.length; i++) {
-            out[i] = (char) line[i];
-        }
-        return out;
     }
 
     protected double[] reader(int length, int len) {
@@ -81,22 +69,21 @@ public class Client extends Thread {
                     //System.out.println("Array's length is not " + length);
                     break;
                 }
-                if ((line[0] == (byte) '\0')&&(flag != -1)) {
+                if ((line[0] == (byte) '\0') && (flag != -1)) {
                     out[j] = 0;
                     j++;
                     ++cnt;
-                } else if((line[0] != (byte) '\0')&&(flag != -1)){
+                } else if ((line[0] != (byte) '\0') && (flag != -1)) {
                     out[j] = line[0];
                     j++;
                     ++cnt;
                 }
+
                 if (cnt == 2) {
                     outDouble[k++] = (double) toInt(out[j - 2], out[j - 1]);
                     cnt = 0;
                 }
-
             }
-
         } catch (IOException | IllegalArgumentException e) {//
             e.printStackTrace();
         }

@@ -163,6 +163,18 @@ public class MadgwickAlgorithm {
         double[][] J_m = new double[3][4];
         double[] q_omega_dot = new double[4];
 
+        a = normalizeVector(a);
+        m = normalizeVector(m);
+        //g = normalizeVector(g);
+        g = matrixMultiplication(g,Math.PI/(180));
+        /*for(int i = 0; i<g.length; i++){
+            System.out.print("g"+i+":"+g[i]+" ");
+        }
+        System.out.print('\n');
+        for(int i = 0; i<g.length; i++){
+            System.out.print("a"+i+":"+a[i]+" ");
+        }*/
+        System.out.print('\n');
         f_a[0] = 2 * (q_est[1] * q_est[3] - q_est[0] * q_est[2]) - a[0];
         f_a[1] = 2 * (q_est[0] * q_est[1] + q_est[2] * q_est[3]) - a[1];
         f_a[2] = 2 * (0.5 - q_est[1] * q_est[1] - q_est[2] * q_est[2]) - a[2];

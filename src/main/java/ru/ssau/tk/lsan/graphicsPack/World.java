@@ -27,16 +27,13 @@ public class World {
         return box;
     }
 
-    protected final void rotateBox(Box box, double duration, double angle) {
+    protected final void rotateBox(Box box, double duration, double angle, Point3D rotationAxis) {
         RotateTransition rotate = new RotateTransition();
-        Point3D rotationAxis = new Point3D(1d,1d,1d);
-        box.setRotationAxis(rotationAxis);
-        //box.setRotate(angle);
         rotate.setByAngle(angle);
         //rotate.setCycleCount(500);
-        rotate.setDuration(Duration.millis(1000));
         //rotate.setDuration(Duration.millis(duration));
-        //rotate.setAutoReverse(true);
+        rotate.setAxis(rotationAxis);
+        rotate.setAutoReverse(true);
         rotate.setNode(box);
         rotate.play();
     }
