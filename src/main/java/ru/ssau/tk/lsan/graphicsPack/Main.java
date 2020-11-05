@@ -9,13 +9,6 @@ import javafx.stage.Stage;
 import ru.ssau.tk.lsan.graphicsPack.Socket.Client;
 
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Exchanger;
-
-//import javafx.fxml.FXMLLoader;
-//import javafx.scene.Parent;
-//import java.io.IOException;
-
 
 public class Main extends Application {
 

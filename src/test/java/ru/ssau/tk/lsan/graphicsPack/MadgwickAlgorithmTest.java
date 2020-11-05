@@ -1,5 +1,6 @@
 package ru.ssau.tk.lsan.graphicsPack;
 
+import org.ejml.simple.SimpleMatrix;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -62,6 +63,9 @@ public class MadgwickAlgorithmTest {
                 assertEquals(ansArr[i][j], ans[i][j], delta);
             }
         }
+        SimpleMatrix mat1 = new SimpleMatrix(m1);
+        SimpleMatrix mat2 = new SimpleMatrix(m2);
+        SimpleMatrix ans1 = mat1.mult(mat2);
     }
 
     @Test
@@ -94,6 +98,8 @@ public class MadgwickAlgorithmTest {
         for(int i = 0; i<3;i++){
             assertEquals(ans[i],ansArr[i],delta);
         }
+
+        SimpleMatrix mat1 = new SimpleMatrix(3,1,true,m1);
     }
 
     @Test

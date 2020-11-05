@@ -23,11 +23,14 @@ public class RotationManager extends Thread {
     }
 
     public void updateNodes(double duration) {
-        double q0 = initial.getQ_est()[0];
         initial.calculatePosition(new double[]{message[0],message[1],message[2]},new double[]{message[6],message[7],message[8]},new double[]{message[3],message[4],message[5]});
         double[] q = initial.getQ_est();
-        Point3D rotationAxis = new Point3D(q[1],q[2],q[3]);
-        world.rotateBox(box, duration, q[0]*180/Math.PI,rotationAxis);
+        double angle = Math.acos(q[0])*2;
+        double q1 = -q[1]/Math.sin(angle/2);
+        double q2 = -q[2]/Math.sin(angle/2);
+        double q3 = -q[3]/Math.sin(angle/2);
+        Point3D rotationAxis = new Point3D(q1,q2,q3);
+        world.rotateBox(box, duration, angle,rotationAxis);
        // System.out.println(q[0]);
     }
 
@@ -44,9 +47,9 @@ public class RotationManager extends Thread {
                     while(exchanger.take()!=666d);
                     for (int i = 0; i < message.length; i++) {
                         message[i] = exchanger.take();
-                        System.out.print(message[i]+" ");
+                        //System.out.print(message[i]+" ");
                     }
-                    System.out.print('\n');
+                    //System.out.print('\n');
                     Platform.runLater(updater);
                 }
 

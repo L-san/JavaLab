@@ -91,7 +91,7 @@ public class Client extends Thread {
     }
 
     public int toInt(byte hb, byte lb) {
-        ByteBuffer bb = ByteBuffer.wrap(new byte[]{hb, lb});
+        ByteBuffer bb = ByteBuffer.wrap(new byte[]{lb, hb});
         return bb.getShort();
     }
 }
