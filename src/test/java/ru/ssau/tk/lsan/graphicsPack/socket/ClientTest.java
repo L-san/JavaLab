@@ -1,8 +1,6 @@
-package ru.ssau.tk.lsan.graphicsPack.Socket;
+package ru.ssau.tk.lsan.graphicsPack.socket;
 
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.*;
 
 public class ClientTest {
 

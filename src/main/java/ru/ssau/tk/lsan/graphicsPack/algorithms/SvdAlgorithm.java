@@ -1,19 +1,28 @@
-package ru.ssau.tk.lsan.graphicsPack;
+package ru.ssau.tk.lsan.graphicsPack.algorithms;
 
 import org.ejml.simple.SimpleMatrix;
 import org.ejml.simple.SimpleSVD;
 
-public class SvdAlgorithm {
+public class SvdAlgorithm implements Algorithm {
     private final SimpleMatrix w;
-    private final SimpleMatrix v;
+    private SimpleMatrix v;
     private SimpleMatrix q;
 
-    public SvdAlgorithm(double[] w0, double[] v0) {
-        this.w = new SimpleMatrix(3, 1, true, w0);
-        this.v = new SimpleMatrix(3, 1, true, v0);
+    @Override
+    public SimpleMatrix getQuaternion() {
+        return q;
     }
 
-    private void solve() {
+    public SvdAlgorithm(double[] w0) {
+        this.w = new SimpleMatrix(3, 1, true, w0);
+        this.v = new SimpleMatrix(3, 1, true, w0);
+    }
+
+    @Override
+    public void calculatePosition(double[] a, double[] m, double[] g) {
+        this.v = new SimpleMatrix(3, 2, true, a);
+        this.v.setColumn(1,0,m);
+
         SimpleMatrix B = w.mult(v.transpose());
         SimpleSVD usv = B.svd();
         SimpleMatrix M = SimpleMatrix.diag(1, 1, usv.getU().determinant() * usv.getV().determinant());

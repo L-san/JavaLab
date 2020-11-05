@@ -2,6 +2,7 @@ package ru.ssau.tk.lsan.graphicsPack;
 
 import org.ejml.simple.SimpleMatrix;
 import org.testng.annotations.Test;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.MadgwickAlgorithm;
 
 import static org.testng.Assert.*;
 

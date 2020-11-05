@@ -1,6 +1,8 @@
-package ru.ssau.tk.lsan.graphicsPack;
+package ru.ssau.tk.lsan.graphicsPack.algorithms;
 
-public class MadgwickAlgorithm {
+import org.ejml.simple.SimpleMatrix;
+
+public class MadgwickAlgorithm implements Algorithm {
     private final double dzta;
     private final double bta;
     private double delta_T;
@@ -23,11 +25,12 @@ public class MadgwickAlgorithm {
         this.q_omega = new double[]{0, 0, 0, 0};
     }
 
-    public double[] getQ_est() {
-        return q_est;
+    @Override
+    public SimpleMatrix getQuaternion() {
+        return new SimpleMatrix(4, 1, true, q_est);
     }
 
-    protected double dot(double[] a, double[] b) {
+    public double dot(double[] a, double[] b) {
         if (a.length != b.length) {
             throw new IllegalArgumentException("forbidden length");
         }
@@ -38,14 +41,14 @@ public class MadgwickAlgorithm {
         return ans;
     }
 
-    protected double[] cross(double[] a, double[] b) {
+    public double[] cross(double[] a, double[] b) {
         if (a.length != b.length || a.length != 3) {
             throw new IllegalArgumentException("forbidden length");
         }
         return new double[]{a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[1] * b[2] - a[2] * b[1]};
     }
 
-    protected double[] quat_mult(double[] a, double[] b) {
+    public double[] quat_mult(double[] a, double[] b) {
         double[] Q = new double[4];
         double[] aCrossB = cross(new double[]{a[1], a[2], a[3]}, new double[]{b[1], b[2], b[3]});
         Q[0] = a[0] * b[0] - dot(new double[]{a[1], a[2], a[3]}, new double[]{b[1], b[2], b[3]});
@@ -55,11 +58,11 @@ public class MadgwickAlgorithm {
         return Q;
     }
 
-    protected double[] quat_conj(double[] a) {
+    public double[] quat_conj(double[] a) {
         return new double[]{a[0], -a[1], -a[2], -a[3]};
     }
 
-    protected double[][] matrixMultiplication(double[][] a, double[][] b, int l, int m, int n) {
+    public double[][] matrixMultiplication(double[][] a, double[][] b, int l, int m, int n) {
         //A (l x m) и B (m x n) определяется как Матрица C (l x n)
         double[][] c = new double[l][n];
         for (int i = 0; i < l; i++) {
@@ -72,7 +75,7 @@ public class MadgwickAlgorithm {
         return c;
     }
 
-    protected double[] matrixMultiplication(double[][] a, double[] bt) {
+    public double[] matrixMultiplication(double[][] a, double[] bt) {
         //A (l x m) и B (m x n) определяется как Матрица C (l x n)
         if (bt.length != 6) {
             throw new IllegalArgumentException("Length could be 6");
@@ -99,7 +102,7 @@ public class MadgwickAlgorithm {
         return c;
     }
     */
-    protected double[] matrixMultiplication(double[] a, double b) {
+    public double[] matrixMultiplication(double[] a, double b) {
         double[] c = new double[a.length];
         for (int i = 0; i < a.length; ++i) {
             c[i] = a[i] * b;
@@ -117,7 +120,7 @@ public class MadgwickAlgorithm {
           return c;
       }
   */
-    protected double[] normalizeVector(double[] a) {
+    public double[] normalizeVector(double[] a) {
         double[] c = new double[a.length];
         double norm = Math.sqrt(dot(a, a));
         if (norm != 0) {
@@ -132,7 +135,7 @@ public class MadgwickAlgorithm {
         return c;
     }
 
-    protected double[] matrixSum(double[] a, double[] b) {
+    public double[] matrixSum(double[] a, double[] b) {
         double[] c = new double[a.length];
         for (int i = 0; i < a.length; i++) {
             c[i] = a[i] + b[i];
@@ -140,7 +143,7 @@ public class MadgwickAlgorithm {
         return c;
     }
 
-    protected double[] matrixSum(double[] a, double b, int h) {
+    public double[] matrixSum(double[] a, double b, int h) {
         double[] c = new double[h];
         for (int i = 0; i < h; i++) {
             c[i] = a[i] + b;
@@ -148,15 +151,15 @@ public class MadgwickAlgorithm {
         return c;
     }
 
-    protected double[] matrixDivision(double[] a, double[] b, int h) {
+    public double[] matrixDivision(double[] a, double[] b, int h) {
         double[] c = new double[h];
         for (int i = 0; i < h; i++) {
             c[i] = a[i] - b[i];
         }
         return c;
     }
-
-    protected void calculatePosition(double[] a, double[] m, double[] g) {
+@Override
+    public void calculatePosition(double[] a, double[] m, double[] g) {
         double[] f_a = new double[3];
         double[][] J_a = new double[3][4];
         double[] f_m = new double[3];
@@ -166,17 +169,17 @@ public class MadgwickAlgorithm {
         a = normalizeVector(a);
         m = normalizeVector(m);
         //g = normalizeVector(g);
-        g = matrixMultiplication(g,Math.PI/(180*(2<<14)));
-        for(int i = 0; i<g.length; i++){
-            System.out.print("g"+i+":"+g[i]+" ");
+        g = matrixMultiplication(g, Math.PI / (180 * (2 << 14)));
+        for (int i = 0; i < g.length; i++) {
+            System.out.print("g" + i + ":" + g[i] + " ");
         }
         System.out.print('\n');
-        for(int i = 0; i<g.length; i++){
-            System.out.print("a"+i+":"+a[i]+" ");
+        for (int i = 0; i < g.length; i++) {
+            System.out.print("a" + i + ":" + a[i] + " ");
         }
         System.out.print('\n');
-        for(int i = 0; i<g.length; i++){
-            System.out.print("m"+i+":"+m[i]+" ");
+        for (int i = 0; i < g.length; i++) {
+            System.out.print("m" + i + ":" + m[i] + " ");
         }
         System.out.print('\n');
         f_a[0] = 2 * (q_est[1] * q_est[3] - q_est[0] * q_est[2]) - a[0];

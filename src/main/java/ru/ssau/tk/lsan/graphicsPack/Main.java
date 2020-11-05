@@ -6,7 +6,8 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.shape.Box;
 import javafx.stage.Stage;
-import ru.ssau.tk.lsan.graphicsPack.Socket.Client;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.MadgwickAlgorithm;
+import ru.ssau.tk.lsan.graphicsPack.socket.Client;
 
 import java.util.concurrent.ArrayBlockingQueue;
 

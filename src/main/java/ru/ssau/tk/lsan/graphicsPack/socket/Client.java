@@ -1,4 +1,4 @@
-package ru.ssau.tk.lsan.graphicsPack.Socket;
+package ru.ssau.tk.lsan.graphicsPack.socket;
 
 import java.io.*;
 import java.net.Socket;

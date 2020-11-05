@@ -1,9 +1,7 @@
 package ru.ssau.tk.lsan.mathBar;
 
 import org.testng.annotations.Test;
-import ru.ssau.tk.lsan.graphicsPack.MadgwickAlgorithm;
-
-import static org.testng.Assert.*;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.MadgwickAlgorithm;
 
 public class MainTest extends MadgwickAlgorithm{
     @Test

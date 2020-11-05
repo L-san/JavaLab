@@ -3,18 +3,19 @@ package ru.ssau.tk.lsan.graphicsPack;
 import javafx.application.Platform;
 import javafx.geometry.Point3D;
 import javafx.scene.shape.Box;
+import org.ejml.simple.SimpleMatrix;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.Algorithm;
 
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Exchanger;
 
 public class RotationManager extends Thread {
     private static ArrayBlockingQueue<Double> exchanger;
     protected double[] message;
     protected World world;
     protected Box box;
-    protected MadgwickAlgorithm initial;
+    protected Algorithm initial;
 
-    public RotationManager(ArrayBlockingQueue<Double> ex, World tWorld, Box tBox,MadgwickAlgorithm initial0, int len) {
+    public RotationManager(ArrayBlockingQueue<Double> ex, World tWorld, Box tBox, Algorithm initial0, int len) {
         exchanger = ex;
         this.world = tWorld;
         this.box = tBox;
@@ -24,11 +25,11 @@ public class RotationManager extends Thread {
 
     public void updateNodes(double duration) {
         initial.calculatePosition(new double[]{message[0],message[1],message[2]},new double[]{message[6],message[7],message[8]},new double[]{message[3],message[4],message[5]});
-        double[] q = initial.getQ_est();
-        double angle = Math.acos(q[0])*2;
-        double q1 = -q[1]/Math.sin(angle/2);
-        double q2 = -q[2]/Math.sin(angle/2);
-        double q3 = -q[3]/Math.sin(angle/2);
+        SimpleMatrix q = initial.getQuaternion();
+        double angle = Math.acos(q.get(0))*2;
+        double q1 = -q.get(1)/Math.sin(angle/2);
+        double q2 = -q.get(2)/Math.sin(angle/2);
+        double q3 = -q.get(3)/Math.sin(angle/2);
         Point3D rotationAxis = new Point3D(q1,q2,q3);
         world.rotateBox(box, duration, angle,rotationAxis);
        // System.out.println(q[0]);
