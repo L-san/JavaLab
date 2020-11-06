@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.ssau.tk.lsan.graphicsPack.algorithms.MadgwickAlgorithm;
 
 import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class MadgwickAlgorithmTest {
 
@@ -94,12 +95,22 @@ public class MadgwickAlgorithmTest {
     public void testMatrixSum() {
         double[] m1 = new double[]{0, 5, 1};
         double[] m2 = new double[]{1,2,3};
+        double[][] m12 = new double[][]{{0, 5},{ 1,1},{2,3}};
         double[] ans = test.matrixSum(m1,m2);
         double[] ansArr = new double[]{1,7,4};
         for(int i = 0; i<3;i++){
             assertEquals(ans[i],ansArr[i],delta);
         }
-
+        SimpleMatrix g = new SimpleMatrix(3, 1, true, m1);
+        SimpleMatrix m = new SimpleMatrix(3, 1, true, m2);
+        SimpleMatrix initVec =new SimpleMatrix(3,3,true,new double[]{0, 1, 2,10,11,12,20,21,22});
+        for(int i = 0; i<3;i++){
+            for(int j = 0; j<3;j++){
+                //assertEquals(initVec.get(i,j),m12[i][j]);
+                System.out.print(" "+initVec.get(i,j));
+            }
+            System.out.print('\n');
+        }
         SimpleMatrix mat1 = new SimpleMatrix(3,1,true,m1);
     }
 
@@ -143,12 +154,12 @@ public class MadgwickAlgorithmTest {
         double delta_T = 0.001;
 
         MadgwickAlgorithm realTest = new MadgwickAlgorithm(q_est,omega_eps_prev,bta,dzta,delta_T);
-        double[] q = realTest.getQ_est();
+        SimpleMatrix q = realTest.getQuaternion();
         realTest.calculatePosition(new double[]{1,0,0}, new double[]{0,0,1}, new double[]{0,0,0});
-        double[] qCalc = realTest.getQ_est();
+        SimpleMatrix qCalc = realTest.getQuaternion();
         for(int i =0;i<4;i++){
-            assertEquals(q[i],q_est[i],delta);
-            assertEquals(qCalc[i],q_est[i],delta);
+            assertEquals(q.get(i),q_est[i],delta);
+            assertEquals(qCalc.get(i),q_est[i],delta);
         }
     }
 

@@ -6,7 +6,10 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.shape.Box;
 import javafx.stage.Stage;
+import org.ejml.simple.SimpleMatrix;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.Algorithm;
 import ru.ssau.tk.lsan.graphicsPack.algorithms.MadgwickAlgorithm;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.SvdAlgorithm;
 import ru.ssau.tk.lsan.graphicsPack.socket.Client;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -21,17 +24,21 @@ public class Main extends Application {
         root.getChildren().add(box);
 
         Scene scene = new Scene(root, 1280, 720);
-        ArrayBlockingQueue<Double> exchanger = new ArrayBlockingQueue<Double>(9);
+        ArrayBlockingQueue<Byte> exchanger = new ArrayBlockingQueue<>(18);
         Thread clientSocketThread = new Client(exchanger);
 
-        double dzta = 8.660254037844386e-04;
-        double bta = 8.660254037844386e-04;
-        double[] q_est = new double[]{1,0,0,0};
+        double dzta = 8.660254037844386e-03;
+        double bta = 8.660254037844386e-03;
+        double[] q_est = new double[]{1, 0, 0, 0};
         double omega_eps_prev = 0;
         double delta_T = 0.1;
-
-        MadgwickAlgorithm initial = new MadgwickAlgorithm(q_est,omega_eps_prev,bta,dzta,delta_T);
-        Thread rotationManager = new RotationManager(exchanger, myWorld, box,initial,9);
+        double[] m = new double[]{0.3040, 0.0654, 0.9504};
+        double[] g = new double[]{0, 0, -1};
+        double[] vector = new double[]{g[0],m[0],g[1],m[1],g[2],m[2]};
+        SimpleMatrix initVec = new SimpleMatrix(3,2,true,vector);
+        Algorithm initial = new MadgwickAlgorithm(q_est,omega_eps_prev,bta,dzta,delta_T);
+        //Algorithm initial = new SvdAlgorithm(initVec);
+        Thread rotationManager = new RotationManager(exchanger, myWorld, box, initial, 18);
 
         clientSocketThread.setDaemon(true);
         rotationManager.setDaemon(true);
@@ -51,13 +58,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-       /* Exchanger<Double> exchanger = new Exchanger<>();
+        /*ArrayBlockingQueue<Byte> exchanger = new ArrayBlockingQueue<>(18);
         Thread clientSocketThread = new Client(exchanger);
 
         clientSocketThread.setDaemon(true);
         clientSocketThread.start();*/
     }
 }
-//todo парсинг сообщений с сокетов
-//todo не забыть про нормализацию показаний
-//todo перечитать еще раз алгоритм, посмотреть, как работает через сокеты
