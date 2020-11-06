@@ -13,15 +13,15 @@ public class SvdAlgorithm implements Algorithm {
         return q;
     }
 
-    public SvdAlgorithm(double[] w0) {
-        this.w = new SimpleMatrix(3, 1, true, w0);
-        this.v = new SimpleMatrix(3, 1, true, w0);
+    public SvdAlgorithm(SimpleMatrix w0) {
+        this.w = w0;
+        this.v = w0;
     }
 
     @Override
     public void calculatePosition(double[] a, double[] m, double[] g) {
-        this.v = new SimpleMatrix(3, 2, true, a);
-        this.v.setColumn(1,0,m);
+        double[] vec = new double[]{a[0],m[0],a[1],m[1],a[2],m[2]};
+        this.v = new SimpleMatrix(3, 2, true, vec);
 
         SimpleMatrix B = w.mult(v.transpose());
         SimpleSVD usv = B.svd();

@@ -9,7 +9,6 @@ public class MadgwickAlgorithm implements Algorithm {
     private double[] q_est;
     private double[] q_omega;
     private double omega_eps_prev;
-    private double[] q_eps_dot;
 
     public MadgwickAlgorithm() {
         this.bta = 0d;
@@ -158,7 +157,8 @@ public class MadgwickAlgorithm implements Algorithm {
         }
         return c;
     }
-@Override
+
+    @Override
     public void calculatePosition(double[] a, double[] m, double[] g) {
         double[] f_a = new double[3];
         double[][] J_a = new double[3][4];
@@ -170,17 +170,6 @@ public class MadgwickAlgorithm implements Algorithm {
         m = normalizeVector(m);
         //g = normalizeVector(g);
         g = matrixMultiplication(g, Math.PI / (180 * (2 << 14)));
-        for (int i = 0; i < g.length; i++) {
-            System.out.print("g" + i + ":" + g[i] + " ");
-        }
-        System.out.print('\n');
-        for (int i = 0; i < g.length; i++) {
-            System.out.print("a" + i + ":" + a[i] + " ");
-        }
-        System.out.print('\n');
-        for (int i = 0; i < g.length; i++) {
-            System.out.print("m" + i + ":" + m[i] + " ");
-        }
         System.out.print('\n');
         f_a[0] = 2 * (q_est[1] * q_est[3] - q_est[0] * q_est[2]) - a[0];
         f_a[1] = 2 * (q_est[0] * q_est[1] + q_est[2] * q_est[3]) - a[1];
@@ -228,7 +217,7 @@ public class MadgwickAlgorithm implements Algorithm {
 
         double[] f = new double[]{f_a[0], f_a[1], f_a[2], f_m[0], f_m[1], f_m[2]};
         double[] grad_f = matrixMultiplication(J, f);
-        q_eps_dot = normalizeVector(grad_f);
+        double[] q_eps_dot = normalizeVector(grad_f);
 
         double[] omega_eps = quat_mult(quat_conj(q_est), q_eps_dot);
         omega_eps = matrixMultiplication(omega_eps, 2 * delta_T);
