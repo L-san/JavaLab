@@ -1,5 +1,7 @@
 package ru.ssau.tk.lsan.graphicsPack.operations;
 
+import org.ejml.simple.SimpleMatrix;
+
 public class LinearAlgebraOperations {
 
     public double dot(double[] a, double[] b) {
@@ -47,16 +49,27 @@ public class LinearAlgebraOperations {
         return c;
     }
 
+    public double[][] matrixMultiplication(double[][] a, double b) {
+        //A (l x m) и B (m x n) определяется как Матрица C (l x n)
+        double[][] c = new double[a.length][a.length];
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length; j++) {
+                    c[i][j] = a[i][j] * b;
+            }
+        }
+        return c;
+    }
+
     public double[] matrixMultiplication(double[][] a, double[] bt) {
         //A (l x m) и B (m x n) определяется как Матрица C (l x n)
         double[][] b = new double[bt.length][1];
-        for(int i = 0; i<bt.length;i++){
+        for (int i = 0; i < bt.length; i++) {
             b[i][0] = bt[i];
         }
         double[][] c;
         double[] g = new double[a.length];
         c = matrixMultiplication(a, b, a.length, bt.length, 1);
-        for(int j = 0; j<a.length; j++){
+        for (int j = 0; j < a.length; j++) {
             g[j] = c[j][0];
         }
         return g;
@@ -113,6 +126,16 @@ public class LinearAlgebraOperations {
         return c;
     }
 
+    public double[][] matrixSum(double[][] a, double[][] b) {
+        double[][] c = new double[a.length][a.length];
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length; j++) {
+                c[i][j] = a[i][j] + b[i][j];
+            }
+        }
+        return c;
+    }
+
     public double[] matrixSum(double[] a, double b, int h) {
         double[] c = new double[h];
         for (int i = 0; i < h; i++) {
@@ -127,5 +150,37 @@ public class LinearAlgebraOperations {
             c[i] = a[i] - b[i];
         }
         return c;
+    }
+//todo
+    public double[][] matrixDivision(double[][] a, double[][] b) {
+        double[][] c = new double[a.length][a.length];
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length; j++) {
+                c[i][j] = a[i][j] - b[i][j];
+            }
+        }
+        return c;
+    }
+
+    public double[][] transponse(double[][] a) {
+        double[][] b = new double[a.length][a.length];
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length; j++) {
+                b[i][j] = a[j][i];
+            }
+        }
+        return b;
+    }
+
+    public double[][] inv(double[][] a) {
+        SimpleMatrix am = new SimpleMatrix(a);
+        SimpleMatrix cm = am.invert();
+        double[][] ans = new double[a.length][a.length];
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length; j++) {
+                ans[i][j] = cm.get(i, j);
+            }
+        }
+        return ans;
     }
 }

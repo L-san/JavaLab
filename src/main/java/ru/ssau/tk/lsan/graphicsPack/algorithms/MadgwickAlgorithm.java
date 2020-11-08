@@ -10,6 +10,7 @@ public class MadgwickAlgorithm extends LinearAlgebraOperations implements Algori
     private double[] q_est;
     private double[] q_omega;
     private double[] omega_eps_prev;
+    private KalmanFilter filter;
     private final double[][] magnetometerDataCorrectionMatrix = new double[][]{{0.965132504064866, 0.0148210866477187, 0.0214381657657772},
             {0.0148210866477187, 1.05960526844393, 0.121793933417382},
             {0.0214381657657772, 0.121793933417382, 0.992455611730103}};
@@ -27,6 +28,7 @@ public class MadgwickAlgorithm extends LinearAlgebraOperations implements Algori
         this.q_est = q_est_0;
         this.omega_eps_prev = omega_eps_prev_0;
         this.q_omega = new double[]{0, 0, 0, 0};
+        this.filter = new KalmanFilter(new double[]{0.1811e-04,-0.7350e-04,0.1598e-04},0d,50d);
     }
 
     @Override
@@ -48,6 +50,8 @@ public class MadgwickAlgorithm extends LinearAlgebraOperations implements Algori
         m = normalizeVector(m);
         //g = normalizeVector(g);
         g = matrixMultiplication(g, Math.PI / (180 * (2 << 14)));
+        filter.doFiltering(g);
+        filter.getX();
         System.out.print('\n');
         f_a[0] = 2 * (q_est[1] * q_est[3] - q_est[0] * q_est[2]) - a[0];
         f_a[1] = 2 * (q_est[0] * q_est[1] + q_est[2] * q_est[3]) - a[1];
