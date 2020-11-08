@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.DrawMode;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
@@ -27,6 +28,13 @@ public class World {
         return box;
     }
 
+    protected Text newText(){
+        Text text = new Text();
+        text.setX(50);
+        text.setY(600);
+        return text;
+    }
+
     protected final void rotateBox(Box box, double duration, double angle, Point3D rotationAxis) {
         RotateTransition rotate = new RotateTransition();
         rotate.setByAngle(angle);
@@ -36,5 +44,9 @@ public class World {
         rotate.setAutoReverse(true);
         rotate.setNode(box);
         rotate.play();
+    }
+
+    protected final void updateText(Text text, String str){
+        text.setText(str);
     }
 }

@@ -150,7 +150,7 @@ public class MadgwickAlgorithmTest {
         double dzta = 8.660254037844386e-04;
         double bta = 8.660254037844386e-04;
         double[] q_est = new double[]{1,0,0,0};
-        double omega_eps_prev = 0;
+        double[] omega_eps_prev = new double[]{0,0,0,0};;
         double delta_T = 0.001;
 
         MadgwickAlgorithm realTest = new MadgwickAlgorithm(q_est,omega_eps_prev,bta,dzta,delta_T);
