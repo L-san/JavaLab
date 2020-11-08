@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import org.ejml.simple.SimpleMatrix;
 import ru.ssau.tk.lsan.graphicsPack.algorithms.Algorithm;
 import ru.ssau.tk.lsan.graphicsPack.algorithms.MadgwickAlgorithm;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.MdgwckAlgorithm;
 import ru.ssau.tk.lsan.graphicsPack.algorithms.SvdAlgorithm;
 import ru.ssau.tk.lsan.graphicsPack.socket.Client;
 
@@ -29,8 +30,8 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1280, 720);
         ArrayBlockingQueue<Byte> exchanger = new ArrayBlockingQueue<>(18);
         Thread clientSocketThread = new Client(exchanger);
-        double gyroMeasError = 3.14159265358979 * (30.0f / 180.0f);
-        double gyroMeasDrift = 3.14159265358979 * (0.1f / 180.0f);
+        double gyroMeasError = 3.14159265358979 * (10.0f / 180.0f);
+        double gyroMeasDrift = 3.14159265358979 * (0.05f / 180.0f);
         double zeta = Math.sqrt(3.0f / 4.0f) * gyroMeasDrift;
         double beta = Math.sqrt(3.0f / 4.0f) * gyroMeasError;
 
@@ -42,6 +43,7 @@ public class Main extends Application {
         double[] vector = new double[]{g[0], m[0], g[1], m[1], g[2], m[2]};
         SimpleMatrix initVec = new SimpleMatrix(3, 2, true, vector);
         Algorithm initial = new MadgwickAlgorithm(q_est, omega_eps_prev, beta, zeta, delta_T);
+        //lgorithm initial = new MdgwckAlgorithm(q_est, beta, zeta, delta_T);
         //Algorithm initial = new SvdAlgorithm(initVec);
 
         Thread rotationManager = new RotationManager(exchanger, myWorld, box, label, initial, 18);
