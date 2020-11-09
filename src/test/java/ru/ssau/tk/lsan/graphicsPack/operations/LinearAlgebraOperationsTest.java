@@ -86,6 +86,13 @@ public class LinearAlgebraOperationsTest {
         for(int i = 0;i<3;i++){
             assertEquals(ans[i],ansArr[i],delta);
         }
+        double[] q_omega_dot = new double[]{1d,2d,3d,4d};
+        double delta_T = 2;
+        ans = test.matrixMultiplication(q_omega_dot, delta_T);
+        ansArr = new double[]{2, 4, 6,8};
+        for(int i = 0;i<3;i++){
+            assertEquals(ans[i],ansArr[i],delta);
+        }
     }
 
     @Test
@@ -109,6 +116,7 @@ public class LinearAlgebraOperationsTest {
             System.out.print('\n');
         }
         SimpleMatrix mat1 = new SimpleMatrix(3,1,true,m1);
+
     }
 
     @Test
@@ -149,4 +157,17 @@ public class LinearAlgebraOperationsTest {
     @Test
     public void testInv() {
     }
+
+    @Test
+    public void testPuassonsEq(){
+        double[] q_omega_dot = new double[]{1d,2d,3d,4d};
+        double delta_T = 2;
+        double[] ans = test.matrixSum(q_omega_dot, test.matrixMultiplication(q_omega_dot, delta_T));
+        double[] ansArr = new double[]{3, 6, 9,12};
+        for(int i = 0;i<3;i++){
+            assertEquals(ans[i],ansArr[i],delta);
+        }
+        System.out.println(Math.acos(1));
+    }
+
 }
