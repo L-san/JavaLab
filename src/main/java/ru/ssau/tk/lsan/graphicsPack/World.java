@@ -39,7 +39,7 @@ public class World {
         RotateTransition rotate = new RotateTransition();
         rotate.setByAngle(angle);
         //rotate.setCycleCount(500);
-        //rotate.setDuration(Duration.millis(duration));
+        rotate.setDuration(Duration.millis(duration*1000));
         rotate.setAxis(rotationAxis);
         rotate.setAutoReverse(true);
         rotate.setNode(box);

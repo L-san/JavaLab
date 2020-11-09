@@ -1,6 +1,6 @@
 package ru.ssau.tk.lsan.graphicsPack.algorithms;
 
-import org.ejml.simple.SimpleMatrix;
+import ru.ssau.tk.lsan.graphicsPack.operations.KalmanFilter;
 import ru.ssau.tk.lsan.graphicsPack.operations.LinearAlgebraOperations;
 
 public class MadgwickAlgorithm extends LinearAlgebraOperations implements Algorithm {
@@ -32,8 +32,8 @@ public class MadgwickAlgorithm extends LinearAlgebraOperations implements Algori
     }
 
     @Override
-    public SimpleMatrix getQuaternion() {
-        return new SimpleMatrix(4, 1, true, q_est);
+    public double[] getQuaternion() {
+        return q_est;
     }
 
     @Override
@@ -45,14 +45,14 @@ public class MadgwickAlgorithm extends LinearAlgebraOperations implements Algori
         double[] q_omega_dot = new double[4];
 
         a = normalizeVector(a);
-        m = matrixMultiplication(m,1e-5/(2 << 14));
-        m = matrixMultiplication(magnetometerDataCorrectionMatrix,matrixDivision(m,magnetometerShift,3));
+       // m = matrixMultiplication(m,1e-5/(2 << 14));
+        //m = matrixMultiplication(magnetometerDataCorrectionMatrix,matrixDivision(m,magnetometerShift,3));
         m = normalizeVector(m);
         //g = normalizeVector(g);
-        g = matrixMultiplication(g, Math.PI / (180 * (2 << 14)));
-        filter.doFiltering(g);
-        filter.getX();
-        System.out.print('\n');
+        g = matrixMultiplication(g, Math.PI / (180 * (2 << 13)));
+        //filter.doFiltering(g);
+        //filter.getX();
+        System.out.println("g0: "+g[0]+" g1: "+g[1]+" g2:"+g[2]*180/Math.PI);
         f_a[0] = 2 * (q_est[1] * q_est[3] - q_est[0] * q_est[2]) - a[0];
         f_a[1] = 2 * (q_est[0] * q_est[1] + q_est[2] * q_est[3]) - a[1];
         f_a[2] = 2 * (0.5 - q_est[1] * q_est[1] - q_est[2] * q_est[2]) - a[2];
@@ -110,13 +110,14 @@ public class MadgwickAlgorithm extends LinearAlgebraOperations implements Algori
         q_omega_dot[1] = 0.5 * (q_est[0] * omega_c[1] + crossQOmega[0]);
         q_omega_dot[2] = 0.5 * (q_est[0] * omega_c[2] + crossQOmega[1]);
         q_omega_dot[3] = 0.5 * (q_est[0] * omega_c[3] + crossQOmega[2]);
-        //q_omega_dot[1] = 0.5 * (q_est[0] * g[0] + crossQOmega[0]);
-        //q_omega_dot[2] = 0.5 * (q_est[0] * g[1] + crossQOmega[1]);
-        //q_omega_dot[3] = 0.5 * (q_est[0] * g[2] + crossQOmega[2]);
-        //q_omega = matrixSum(q_omega, matrixMultiplication(q_omega_dot, delta_T));
-        q_omega = q_omega_dot;
-        double[] q_est_dot = matrixDivision(q_omega, matrixMultiplication(q_eps_dot, beta), 4);
+        q_omega = matrixSum(q_omega, matrixMultiplication(q_omega_dot, delta_T));
+
+        double[] q_est_dot = matrixDivision(q_omega_dot, matrixMultiplication(q_eps_dot, beta), 4);
+        double[] q_est_prev = q_est;
         q_est = matrixSum(q_est, matrixMultiplication(q_est_dot, delta_T));
+        //q_est = matrixMultiplication(q_est_dot, delta_T);
+        q_est = quat_mult(quat_conj(q_est_prev),q_est);
         q_est = normalizeVector(q_est);
+        System.out.println("q0: "+q_est[0]+" q1: "+q_est[1]+" q2: "+q_est[2]+" q3: "+q_est[3]);
     }
 }

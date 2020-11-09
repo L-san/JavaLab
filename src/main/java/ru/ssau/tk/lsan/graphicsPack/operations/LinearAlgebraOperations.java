@@ -4,7 +4,7 @@ import org.ejml.simple.SimpleMatrix;
 
 public class LinearAlgebraOperations {
 
-    public double dot(double[] a, double[] b) {
+    public static double dot(double[] a, double[] b) {
         if (a.length != b.length) {
             throw new IllegalArgumentException("forbidden length");
         }
@@ -15,14 +15,14 @@ public class LinearAlgebraOperations {
         return ans;
     }
 
-    public double[] cross(double[] a, double[] b) {
+    public static double[] cross(double[] a, double[] b) {
         if (a.length != b.length || a.length != 3) {
             throw new IllegalArgumentException("forbidden length");
         }
         return new double[]{a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[1] * b[2] - a[2] * b[1]};
     }
 
-    public double[] quat_mult(double[] a, double[] b) {
+    public static double[] quat_mult(double[] a, double[] b) {
         double[] Q = new double[4];
         double[] aCrossB = cross(new double[]{a[1], a[2], a[3]}, new double[]{b[1], b[2], b[3]});
         Q[0] = a[0] * b[0] - dot(new double[]{a[1], a[2], a[3]}, new double[]{b[1], b[2], b[3]});
@@ -32,11 +32,11 @@ public class LinearAlgebraOperations {
         return Q;
     }
 
-    public double[] quat_conj(double[] a) {
+    public static double[] quat_conj(double[] a) {
         return new double[]{a[0], -a[1], -a[2], -a[3]};
     }
 
-    public double[][] matrixMultiplication(double[][] a, double[][] b, int l, int m, int n) {
+    public static double[][] matrixMultiplication(double[][] a, double[][] b, int l, int m, int n) {
         //A (l x m) и B (m x n) определяется как Матрица C (l x n)
         double[][] c = new double[l][n];
         for (int i = 0; i < l; i++) {
@@ -49,7 +49,7 @@ public class LinearAlgebraOperations {
         return c;
     }
 
-    public double[][] matrixMultiplication(double[][] a, double b) {
+    public static double[][] matrixMultiplication(double[][] a, double b) {
         //A (l x m) и B (m x n) определяется как Матрица C (l x n)
         double[][] c = new double[a.length][a.length];
         for (int i = 0; i < a.length; i++) {
@@ -60,7 +60,7 @@ public class LinearAlgebraOperations {
         return c;
     }
 
-    public double[] matrixMultiplication(double[][] a, double[] bt) {
+    public static double[] matrixMultiplication(double[][] a, double[] bt) {
         //A (l x m) и B (m x n) определяется как Матрица C (l x n)
         double[][] b = new double[bt.length][1];
         for (int i = 0; i < bt.length; i++) {
@@ -85,7 +85,7 @@ public class LinearAlgebraOperations {
         return c;
     }
     */
-    public double[] matrixMultiplication(double[] a, double b) {
+    public static double[] matrixMultiplication(double[] a, double b) {
         double[] c = new double[a.length];
         for (int i = 0; i < a.length; ++i) {
             c[i] = a[i] * b;
@@ -103,7 +103,7 @@ public class LinearAlgebraOperations {
           return c;
       }
   */
-    public double[] normalizeVector(double[] a) {
+    public static double[] normalizeVector(double[] a) {
         double[] c = new double[a.length];
         double norm = Math.sqrt(dot(a, a));
         if (norm != 0) {
@@ -118,7 +118,7 @@ public class LinearAlgebraOperations {
         return c;
     }
 
-    public double[] matrixSum(double[] a, double[] b) {
+    public static double[] matrixSum(double[] a, double[] b) {
         double[] c = new double[a.length];
         for (int i = 0; i < a.length; i++) {
             c[i] = a[i] + b[i];
@@ -126,7 +126,7 @@ public class LinearAlgebraOperations {
         return c;
     }
 
-    public double[][] matrixSum(double[][] a, double[][] b) {
+    public static double[][] matrixSum(double[][] a, double[][] b) {
         double[][] c = new double[a.length][a.length];
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a.length; j++) {
@@ -136,7 +136,7 @@ public class LinearAlgebraOperations {
         return c;
     }
 
-    public double[] matrixSum(double[] a, double b, int h) {
+    public static double[] matrixSum(double[] a, double b, int h) {
         double[] c = new double[h];
         for (int i = 0; i < h; i++) {
             c[i] = a[i] + b;
@@ -144,7 +144,7 @@ public class LinearAlgebraOperations {
         return c;
     }
 
-    public double[] matrixDivision(double[] a, double[] b, int h) {
+    public static double[] matrixDivision(double[] a, double[] b, int h) {
         double[] c = new double[h];
         for (int i = 0; i < h; i++) {
             c[i] = a[i] - b[i];
@@ -162,7 +162,7 @@ public class LinearAlgebraOperations {
         return c;
     }
 
-    public double[][] transponse(double[][] a) {
+    public static double[][] transponse(double[][] a) {
         double[][] b = new double[a.length][a.length];
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a.length; j++) {

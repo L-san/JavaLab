@@ -9,8 +9,8 @@ public class SvdAlgorithm implements Algorithm {
     private SimpleMatrix q;
 
     @Override
-    public SimpleMatrix getQuaternion() {
-        return q;
+    public double[] getQuaternion() {
+        return new double[]{q.get(0),q.get(1),q.get(2),q.get(3)};
     }
 
     public SvdAlgorithm(SimpleMatrix w0) {

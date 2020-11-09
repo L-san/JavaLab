@@ -6,6 +6,7 @@ import javafx.scene.shape.Box;
 import javafx.scene.text.Text;
 import org.ejml.simple.SimpleMatrix;
 import ru.ssau.tk.lsan.graphicsPack.algorithms.Algorithm;
+import ru.ssau.tk.lsan.graphicsPack.operations.LinearAlgebraOperations;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -19,31 +20,38 @@ public class RotationManager extends Thread {
     protected Box box;
     protected Algorithm initial;
     protected Text label;
+    private final double time;
+    private double[] q_prev;
 
-    public RotationManager(ArrayBlockingQueue<Byte> ex, World tWorld, Box tBox, Text tLabel, Algorithm initial0, int len) {
+    public RotationManager(ArrayBlockingQueue<Byte> ex, World tWorld, Box tBox, Text tLabel, Algorithm initial0, int len, double time0) {
         exchanger = ex;
         this.world = tWorld;
         this.box = tBox;
         this.message = new byte[len];
         this.initial = initial0;
         this.label = tLabel;
+        this.time = time0;
+        this.q_prev = new double[]{1,0,0,0};
     }
 
     public void updateNodes(double duration) {
         double[] a = parser(0, 1);
-        double[] m = parser(12, 0);
+        double[] m = parser(12, 1);
         //double[] m = new double[]{m0[2],m0[1],m0[0]};
         double[] g = parser(6, 1);
-        //double[] g = new double[]{0d,0d,0d};
-        initial.calculatePosition(a, g, m);
-        SimpleMatrix q = initial.getQuaternion();
-        double angle = Math.acos(q.get(0)) * 2;
-        double q1 = q.get(1) / Math.sin(angle / 2);
-        double q2 = q.get(2) / Math.sin(angle / 2);
-        double q3 = q.get(3) / Math.sin(angle / 2);
-        Point3D rotationAxis = new Point3D(q1, q2, q3);
-        world.rotateBox(box, duration, angle, rotationAxis);
+        //double[] g = new double[]{0d,0d,360*(2<<14)/10};
+        initial.calculatePosition(a, m, g);
+        double[] q = initial.getQuaternion();
+        //q_prev = LinearAlgebraOperations.quat_mult(q_prev,q);
+        q_prev =q;
+        double angle = Math.acos(q_prev[0]);
+        double q1 = q_prev[1] / Math.sin(angle);
+        double q2 = q_prev[2] / Math.sin(angle);
+        double q3 = q_prev[3] / Math.sin(angle);
+        Point3D rotationAxis = new Point3D(-q2, q3, q1);
+        world.rotateBox(box, duration, 2*angle*180/Math.PI, rotationAxis);
         world.updateText(label, getString(a,m,g));
+        //System.out.println("angle: "+2*angle*180/Math.PI+" q1: "+q1+" q2: "+q2+" q3: "+q3);
     }
 
     @Override
@@ -51,7 +59,7 @@ public class RotationManager extends Thread {
         try {
             Runnable updater = () -> {
                 if (message != null) {
-                    updateNodes(0.1d);
+                    updateNodes(time);
                 }
             };
             try {

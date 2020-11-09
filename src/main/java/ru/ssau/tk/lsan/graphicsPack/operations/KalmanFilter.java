@@ -1,4 +1,4 @@
-package ru.ssau.tk.lsan.graphicsPack.algorithms;
+package ru.ssau.tk.lsan.graphicsPack.operations;
 
 import ru.ssau.tk.lsan.graphicsPack.operations.LinearAlgebraOperations;
 
@@ -7,7 +7,7 @@ public class KalmanFilter extends LinearAlgebraOperations {
     private double[][] P, F, H, Q, R;
     private final int nx;
 
-    KalmanFilter(double[] x0,double Q0,double R0) {
+    public KalmanFilter(double[] x0,double Q0,double R0) {
         this.x = x0;
         this.nx = x0.length;
         double[][] i = new double[][]{{1d,0d,0d},{0d,1d,0d},{0d,0d,1d}};

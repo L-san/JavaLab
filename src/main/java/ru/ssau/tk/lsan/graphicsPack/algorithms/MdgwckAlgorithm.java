@@ -27,8 +27,8 @@ public class MdgwckAlgorithm implements Algorithm {
     }
 
     @Override
-    public SimpleMatrix getQuaternion() {
-        return new SimpleMatrix(4, 1, true, new double[]{SEq_1, SEq_2, SEq_3, SEq_4});
+    public double[] getQuaternion() {
+        return new double[]{SEq_1, SEq_2, SEq_3, SEq_4};
     }
 
     @Override
@@ -56,7 +56,7 @@ public class MdgwckAlgorithm implements Algorithm {
         m_y /= norm;
         m_z /= norm;
 
-        double k = Math.PI / (180 * (2 << 14));
+        double k = Math.PI / (180 * (2 << 13));
         w_x *= k;
         w_y *= k;
         w_z *= k;
