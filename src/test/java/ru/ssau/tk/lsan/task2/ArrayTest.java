@@ -155,4 +155,14 @@ public class ArrayTest {
         assertEquals(testArr.maxValue(arrDouble),5d,delta);
         assertNull(testArr.maxValue(new Double[]{}));
     }
+
+    @Test
+    public void testSumOfEven() {
+        final Integer[] arr1 = new Integer[]{2,4,13};
+        final Integer[] arr2 = new Integer[]{1,5,2};
+
+        assertEquals(testArr.sumOfEven(arr1),6,delta);
+        assertEquals(testArr.sumOfEven(arr2),2,delta);
+
+    }
 }

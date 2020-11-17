@@ -180,4 +180,15 @@ public class Array extends Numbers implements ArrayMethods {
         }
         return auxiliary;
     }
+
+    @Override
+    public Integer sumOfEven(Integer[] arr) {
+        Integer cnt = 0;
+        for(int i = 0; i<arr.length; i++){
+            if(arr[i]%2==0){
+                cnt+=arr[i];
+            }
+        }
+        return cnt;
+    }
 }

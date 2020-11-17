@@ -17,4 +17,5 @@ public interface ArrayMethods {
     boolean isInArray(Double n,Double[] arr);
     boolean isNullInArray(Integer[] arr);
     int howManyEven(Integer[] arr);
+    Integer sumOfEven(Integer[] arr);
 }
