@@ -131,4 +131,12 @@ public class ArrayTest {
         }
         assertFalse(new Array().isInArray(5d,arr));
     }
+
+    @Test
+    public void testIsNullInArray() {
+        final Integer[] arr = new Integer[]{2,null,13};
+        final Integer[] arr3 = new Integer[]{2,4,13};
+        assertTrue(new Array().isNullInArray(arr));
+        assertFalse(new Array().isNullInArray(arr3));
+    }
 }

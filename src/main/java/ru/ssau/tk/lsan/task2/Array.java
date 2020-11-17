@@ -137,4 +137,14 @@ public class Array extends Numbers implements ArrayMethods {
         }
         return false;
     }
+
+    @Override
+    public boolean isNullInArray(Integer[] arr) {
+        for(int i = 0; i<arr.length; i++){
+            if(arr[i]==null){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -15,4 +15,5 @@ public interface ArrayMethods {
     Double[] allSimpleNumbersBefore(int n);
     Double[] allDivisorsOfAnInteger(int n);
     boolean isInArray(Double n,Double[] arr);
+    boolean isNullInArray(Integer[] arr);
 }
