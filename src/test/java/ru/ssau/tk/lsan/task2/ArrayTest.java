@@ -165,4 +165,14 @@ public class ArrayTest {
         assertEquals(testArr.sumOfEven(arr2),2,delta);
 
     }
+
+    @Test
+    public void testSumByEvenIndexes() {
+        final Double[] arr1 = new Double[]{2d,4d,13d};
+        final Double[] arr2 = new Double[]{1d,5d,2d};
+
+        assertEquals(testArr.sumByEvenIndexes(arr1),15d,delta);
+        assertEquals(testArr.sumByEvenIndexes(arr2),3d,delta);
+
+    }
 }

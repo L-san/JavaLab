@@ -130,8 +130,8 @@ public class Array extends Numbers implements ArrayMethods {
 
     @Override
     public boolean isInArray(Double n, Double[] arr) {
-        for(int i = 0; i<arr.length; i++){
-            if(arr[i]==n){
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == n) {
                 return true;
             }
         }
@@ -140,8 +140,8 @@ public class Array extends Numbers implements ArrayMethods {
 
     @Override
     public boolean isNullInArray(Integer[] arr) {
-        for(int i = 0; i<arr.length; i++){
-            if(arr[i]==null){
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == null) {
                 return true;
             }
         }
@@ -151,8 +151,8 @@ public class Array extends Numbers implements ArrayMethods {
     @Override
     public int howManyEven(Integer[] arr) {
         int cnt = 0;
-        for(int i = 0; i<arr.length; i++){
-            if(arr[i]%2==0){
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] % 2 == 0) {
                 cnt++;
             }
         }
@@ -160,10 +160,12 @@ public class Array extends Numbers implements ArrayMethods {
     }
 
     public Double maxValue(Double[] arr) {
-        if(arr.length==0){return null;}
+        if (arr.length == 0) {
+            return null;
+        }
         Double auxiliary = arr[0];
-        for(int i = 1;i<arr.length;i++){
-            if(auxiliary<arr[i]){
+        for (int i = 1; i < arr.length; i++) {
+            if (auxiliary < arr[i]) {
                 auxiliary = arr[i];
             }
         }
@@ -171,10 +173,12 @@ public class Array extends Numbers implements ArrayMethods {
     }
 
     public Integer maxValue(Integer[] arr) {
-        if(arr.length==0){return null;}
+        if (arr.length == 0) {
+            return null;
+        }
         Integer auxiliary = arr[0];
-        for(int i = 1;i<arr.length;i++){
-            if(auxiliary<arr[i]){
+        for (int i = 1; i < arr.length; i++) {
+            if (auxiliary < arr[i]) {
                 auxiliary = arr[i];
             }
         }
@@ -184,10 +188,19 @@ public class Array extends Numbers implements ArrayMethods {
     @Override
     public Integer sumOfEven(Integer[] arr) {
         Integer cnt = 0;
-        for(int i = 0; i<arr.length; i++){
-            if(arr[i]%2==0){
-                cnt+=arr[i];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] % 2 == 0) {
+                cnt += arr[i];
             }
+        }
+        return cnt;
+    }
+
+    @Override
+    public Double sumByEvenIndexes(Double[] arr) {
+        Double cnt = 0d;
+        for (int i = 0; i < arr.length; i += 2) {
+            cnt += arr[i];
         }
         return cnt;
     }

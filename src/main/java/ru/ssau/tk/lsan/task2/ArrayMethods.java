@@ -18,4 +18,5 @@ public interface ArrayMethods {
     boolean isNullInArray(Integer[] arr);
     int howManyEven(Integer[] arr);
     Integer sumOfEven(Integer[] arr);
+    Double sumByEvenIndexes(Double[] arr);
 }
