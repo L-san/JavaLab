@@ -89,8 +89,8 @@ public class Array extends Numbers implements ArrayMethods {
 
     @Override
     public void makeOppositeSign(Double[] arr) {
-        for(int i = 0; i<arr.length;i++){
-            arr[i]= arr[i]*(-1);
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = arr[i] * (-1);
         }
     }
 
@@ -98,4 +98,35 @@ public class Array extends Numbers implements ArrayMethods {
     public Double[] newGeometricProgressionArray(int size, double firstElem, double difference) {
         return getGeometricProgression(size, firstElem, difference);
     }
+
+    @Override
+    public Double[] allSimpleNumbersBefore(int n) {
+        if ((n <= 1)) {
+            System.err.println("n<=1");
+        }
+        return new Double[0];
+    }
+
+    @Override
+    public Double[] allDivisorsOfAnInteger(int n) {
+        String ans = "";
+        for (int i = 2; i < Math.sqrt(n); i++) {
+            while (n % i == 0) {
+                n /= i;
+            }
+            ans += i;
+            ans += " ";
+        }
+        ans += n;
+        String[] ansArr = ans.split(" ");
+        Double[] ansDoubleArr = new Double[ansArr.length];
+        for (
+                int j = 0;
+                j < ansArr.length; j++) {
+            ansDoubleArr[j] = Double.parseDouble(ansArr[j]);
+        }
+        return ansDoubleArr;
+    }
+
+
 }

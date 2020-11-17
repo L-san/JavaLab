@@ -113,4 +113,13 @@ public class ArrayTest {
             assertEquals(ariphArr[i], ariphCheck[i], delta);
         }
     }
+
+    @Test
+    public void testAllDivisorsOfAnInteger() {
+        final Double[] arr = new Double[]{2d,3d,13d};
+        final Double[] ans = new Array().allDivisorsOfAnInteger(78);
+        for(int i = 0;i<3;i++){
+            assertEquals(ans[i],arr[i],delta);
+        }
+    }
 }

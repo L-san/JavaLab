@@ -12,4 +12,6 @@ public interface ArrayMethods {
     Double[] newArithmeticProgressionArray(int size, double firstElem, double difference);
     void makeOppositeSign(Double[] arr);
     Double[] newGeometricProgressionArray(int size, double firstElem, double difference);
+    Double[] allSimpleNumbersBefore(int n);
+    Double[] allDivisorsOfAnInteger(int n);
 }
