@@ -139,4 +139,10 @@ public class ArrayTest {
         assertTrue(new Array().isNullInArray(arr));
         assertFalse(new Array().isNullInArray(arr3));
     }
+
+    @Test
+    public void testHowManyEven() {
+        final Integer[] arr = new Integer[]{2,4,13};
+        assertEquals(new Array().howManyEven(arr),2,delta);
+    }
 }

@@ -16,4 +16,5 @@ public interface ArrayMethods {
     Double[] allDivisorsOfAnInteger(int n);
     boolean isInArray(Double n,Double[] arr);
     boolean isNullInArray(Integer[] arr);
+    int howManyEven(Integer[] arr);
 }

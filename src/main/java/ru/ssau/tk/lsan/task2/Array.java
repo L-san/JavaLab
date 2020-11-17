@@ -147,4 +147,15 @@ public class Array extends Numbers implements ArrayMethods {
         }
         return false;
     }
+
+    @Override
+    public int howManyEven(Integer[] arr) {
+        int cnt = 0;
+        for(int i = 0; i<arr.length; i++){
+            if(arr[i]%2==0){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
 }
