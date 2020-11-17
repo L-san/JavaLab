@@ -128,5 +128,13 @@ public class Array extends Numbers implements ArrayMethods {
         return ansDoubleArr;
     }
 
-
+    @Override
+    public boolean isInArray(Double n, Double[] arr) {
+        for(int i = 0; i<arr.length; i++){
+            if(arr[i]==n){
+                return true;
+            }
+        }
+        return false;
+    }
 }

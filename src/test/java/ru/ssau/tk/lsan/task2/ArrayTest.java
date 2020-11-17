@@ -122,4 +122,13 @@ public class ArrayTest {
             assertEquals(ans[i],arr[i],delta);
         }
     }
+
+    @Test
+    public void testIsInArray() {
+        final Double[] arr = new Double[]{2d,3d,13d};
+        for(int i = 0;i<3;i++){
+            assertTrue(new Array().isInArray(arr[i],arr));
+        }
+        assertFalse(new Array().isInArray(5d,arr));
+    }
 }

@@ -14,4 +14,5 @@ public interface ArrayMethods {
     Double[] newGeometricProgressionArray(int size, double firstElem, double difference);
     Double[] allSimpleNumbersBefore(int n);
     Double[] allDivisorsOfAnInteger(int n);
+    boolean isInArray(Double n,Double[] arr);
 }
