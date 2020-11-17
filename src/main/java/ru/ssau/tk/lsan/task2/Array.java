@@ -158,4 +158,26 @@ public class Array extends Numbers implements ArrayMethods {
         }
         return cnt;
     }
+
+    public Double maxValue(Double[] arr) {
+        if(arr.length==0){return null;}
+        Double auxiliary = arr[0];
+        for(int i = 1;i<arr.length;i++){
+            if(auxiliary<arr[i]){
+                auxiliary = arr[i];
+            }
+        }
+        return auxiliary;
+    }
+
+    public Integer maxValue(Integer[] arr) {
+        if(arr.length==0){return null;}
+        Integer auxiliary = arr[0];
+        for(int i = 1;i<arr.length;i++){
+            if(auxiliary<arr[i]){
+                auxiliary = arr[i];
+            }
+        }
+        return auxiliary;
+    }
 }

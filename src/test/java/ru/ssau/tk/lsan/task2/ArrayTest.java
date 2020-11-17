@@ -145,4 +145,14 @@ public class ArrayTest {
         final Integer[] arr = new Integer[]{2,4,13};
         assertEquals(new Array().howManyEven(arr),2,delta);
     }
+
+    @Test
+    public void testMaxValue() {
+        final Integer[] arrInt = new Integer[]{2,4,13};
+        final Double[] arrDouble = new Double[]{1d,5d,2d};
+
+        assertEquals(testArr.maxValue(arrInt),13,delta);
+        assertEquals(testArr.maxValue(arrDouble),5d,delta);
+        assertNull(testArr.maxValue(new Double[]{}));
+    }
 }
