@@ -1,5 +1,7 @@
 package ru.ssau.tk.lsan.task2;
 
+import java.util.Iterator;
+
 public class ArrayT {
     <T extends Number> T occursMostOften(T[] arr) {
         int count, maxcount, num;
@@ -19,5 +21,14 @@ public class ArrayT {
         }
         return arr[num];
 
+    }
+
+    <T extends Number> int getFirstIndexOf(T[] arr, T number) {
+        for(int i = 0; i<arr.length;i++){
+            if(arr[i]==number){
+                return i;
+            }
+        }
+        return -1;
     }
 }

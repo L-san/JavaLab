@@ -16,4 +16,13 @@ public class ArrayTTest {
         assertEquals(test.occursMostOften(arrInt),4,delta);
         assertEquals(test.occursMostOften(arrDouble),2d,delta);
     }
+
+    @Test
+    public void testGetFirstIndexOf() {
+        final Integer[] arrInt = new Integer[]{2,4,13,4};
+        final Double[] arrDouble = new Double[]{1d,5d,2d,2d,2d,40d};
+
+        assertEquals(test.getFirstIndexOf(arrInt,arrInt[1]),1,delta);
+        assertEquals(test.getFirstIndexOf(arrDouble,arrDouble[2]),2,delta);
+    }
 }
