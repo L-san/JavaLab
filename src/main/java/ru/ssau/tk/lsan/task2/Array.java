@@ -1,13 +1,11 @@
 package ru.ssau.tk.lsan.task2;
 
-public class Array extends Numbers implements ArrayMethods {
-    @Override
-    public Double[] newEmptyDoubleArray(int size) {
+public final class Array extends Numbers{
+    public static Double[] newEmptyDoubleArray(int size) {
         return new Double[size];
     }
 
-    @Override
-    public Double[] newFilledDoubleArray(int size) {
+    public static Double[] newFilledDoubleArray(int size) {
         Double[] arr = new Double[size];
         arr[0] = 2d;
         arr[size - 1] = 2d;
@@ -17,8 +15,7 @@ public class Array extends Numbers implements ArrayMethods {
         return arr;
     }
 
-    @Override
-    public Double[] newOddArray(int size) {
+    public static Double[] newOddArray(int size) {
         Double[] arr = new Double[size];
         for (int i = 0; i < size; i++) {
             arr[i] = 2d * i + 1d;
@@ -26,8 +23,7 @@ public class Array extends Numbers implements ArrayMethods {
         return arr;
     }
 
-    @Override
-    public Double[] newDescendingEvenArray(int size) {
+    public static Double[] newDescendingEvenArray(int size) {
         Double[] arr = new Double[size];
         for (int i = size - 1; i > -1; i--) {
             arr[i] = 2d * i + 2;
@@ -35,15 +31,13 @@ public class Array extends Numbers implements ArrayMethods {
         return arr;
     }
 
-    @Override
-    public Double[] newFibonacciArray(int size) {
-        Double[] arr = new Array().newEmptyDoubleArray(size);
+    public static Double[] newFibonacciArray(int size) {
+        Double[] arr = Array.newEmptyDoubleArray(size);
         getFibonacci(size, arr);
         return arr;
     }
 
-    @Override
-    public Double[] newSqrIndexArray(int size) {
+    public static Double[] newSqrIndexArray(int size) {
         Double[] arr = new Array().newEmptyDoubleArray(size);
         for (int i = 0; i < size; i++) {
             arr[i] = (double) (i * i);
@@ -51,8 +45,7 @@ public class Array extends Numbers implements ArrayMethods {
         return arr;
     }
 
-    @Override
-    public Double[] newQuadraticEquationArray(double a, double b, double c) {
+    public static Double[] newQuadraticEquationArray(double a, double b, double c) {
         double D = b * b - 4 * a * c;
         Double[] ans = new Double[]{};
         if (a == 0) {
@@ -67,8 +60,7 @@ public class Array extends Numbers implements ArrayMethods {
         return ans;
     }
 
-    @Override
-    public Double[] newNotDivisibleBy3Array(int size) {
+    public static Double[] newNotDivisibleBy3Array(int size) {
 
         Double[] arr = new Double[size];
         arr[0] = 1d;
@@ -82,33 +74,28 @@ public class Array extends Numbers implements ArrayMethods {
         return arr;
     }
 
-    @Override
-    public Double[] newArithmeticProgressionArray(int size, double firstElem, double difference) {
+    public static Double[] newArithmeticProgressionArray(int size, double firstElem, double difference) {
         return getAriphmeticProgression(size, firstElem, difference);
     }
 
-    @Override
-    public void makeOppositeSign(Double[] arr) {
+    public static void makeOppositeSign(Double[] arr) {
         for (int i = 0; i < arr.length; i++) {
             arr[i] = arr[i] * (-1);
         }
     }
 
-    @Override
-    public Double[] newGeometricProgressionArray(int size, double firstElem, double difference) {
+    public static Double[] newGeometricProgressionArray(int size, double firstElem, double difference) {
         return getGeometricProgression(size, firstElem, difference);
     }
 
-    @Override
-    public Double[] allSimpleNumbersBefore(int n) {
+    public static Double[] allSimpleNumbersBefore(int n) {
         if ((n <= 1)) {
             System.err.println("n<=1");
         }
         return new Double[0];
     }
 
-    @Override
-    public Double[] allDivisorsOfAnInteger(int n) {
+    public static Double[] allDivisorsOfAnInteger(int n) {
         String ans = "";
         for (int i = 2; i < Math.sqrt(n); i++) {
             while (n % i == 0) {
@@ -128,8 +115,7 @@ public class Array extends Numbers implements ArrayMethods {
         return ansDoubleArr;
     }
 
-    @Override
-    public boolean isInArray(Double n, Double[] arr) {
+    public static boolean isInArray(Double n, Double[] arr) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == n) {
                 return true;
@@ -138,8 +124,7 @@ public class Array extends Numbers implements ArrayMethods {
         return false;
     }
 
-    @Override
-    public boolean isNullInArray(Integer[] arr) {
+    public static boolean isNullInArray(Integer[] arr) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == null) {
                 return true;
@@ -148,8 +133,7 @@ public class Array extends Numbers implements ArrayMethods {
         return false;
     }
 
-    @Override
-    public int howManyEven(Integer[] arr) {
+    public static int howManyEven(Integer[] arr) {
         int cnt = 0;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] % 2 == 0) {
@@ -159,7 +143,7 @@ public class Array extends Numbers implements ArrayMethods {
         return cnt;
     }
 
-    public Double maxValue(Double[] arr) {
+    public static Double maxValue(Double[] arr) {
         if (arr.length == 0) {
             return null;
         }
@@ -172,7 +156,7 @@ public class Array extends Numbers implements ArrayMethods {
         return auxiliary;
     }
 
-    public Integer maxValue(Integer[] arr) {
+    public static Integer maxValue(Integer[] arr) {
         if (arr.length == 0) {
             return null;
         }
@@ -185,8 +169,7 @@ public class Array extends Numbers implements ArrayMethods {
         return auxiliary;
     }
 
-    @Override
-    public Integer sumOfEven(Integer[] arr) {
+    public static Integer sumOfEven(Integer[] arr) {
         Integer cnt = 0;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] % 2 == 0) {
@@ -196,13 +179,20 @@ public class Array extends Numbers implements ArrayMethods {
         return cnt;
     }
 
-    @Override
-    public Double sumByEvenIndexes(Double[] arr) {
+    public static Double sumByEvenIndexes(Double[] arr) {
         Double cnt = 0d;
         for (int i = 0; i < arr.length; i += 2) {
             cnt += arr[i];
         }
         return cnt;
+    }
+
+    public static int[] eachByteInversion(int[] arr) {
+        int[] answer = new int[arr.length];
+        for(int i = 0; i<arr.length;i++){
+            answer[i]=~arr[i];
+        }
+        return answer;
     }
 
 }

@@ -1,7 +1,7 @@
 package ru.ssau.tk.lsan.task2;
 
 public class Numbers {
-    public Double getFibonacci(int n, Double[] MemoryArr) {
+    public static Double getFibonacci(int n, Double[] MemoryArr) {
         if (n == MemoryArr.length) {
             n -= 1;
         }
@@ -15,7 +15,7 @@ public class Numbers {
         }
     }
 
-    public Double[] getAriphmeticProgression(int size, double a0, double d) {
+    public static Double[] getAriphmeticProgression(int size, double a0, double d) {
         Double[] MemoryArr = new Double[size];
         for (int i = 0; i < size; i++) {
             MemoryArr[i] = a0 + i * d;
@@ -23,7 +23,7 @@ public class Numbers {
         return MemoryArr;
     }
 
-    public Double[] getGeometricProgression(int size, double a0, double d) {
+    public static Double[] getGeometricProgression(int size, double a0, double d) {
         Double[] MemoryArr = new Double[size];
         MemoryArr[0] = a0;
         for (int i = 1; i < size; i++) {
