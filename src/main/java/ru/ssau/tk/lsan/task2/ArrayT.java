@@ -31,4 +31,12 @@ public class ArrayT {
         }
         return -1;
     }
+
+    <T extends Number> void swapFirstAndLastElement(T[] arr) {
+        T auxiliary;
+        auxiliary = arr[0];
+        arr[0]=arr[arr.length-1];
+        arr[arr.length-1] = auxiliary;
+    }
+
 }
