@@ -193,4 +193,26 @@ public class ArrayTest {
         }
 
     }
+
+    @Test
+    public void testEachByteInversionByLink() {
+        final int[] arr1 = new int[]{2, 4, 13};
+        final int[] arr2 = new int[]{1, 5, 2};
+        final int[] arr1inv = new int[]{~2, ~4, ~13};
+        final int[] arr2inv = new int[]{~1, ~5, ~2};
+        final int[] arr11 = new int[]{2, 4, 13};
+        final int[] arr21 = new int[]{1, 5, 2};
+        Array.eachByteInversionByLink(arr11);
+        Array.eachByteInversionByLink(arr21);
+        for (int i = 0; i < 3; i++) {
+            assertEquals(arr11[i], arr1inv[i]);
+            assertEquals(arr21[i], arr2inv[i]);
+        }
+        Array.eachByteInversionByLink(arr11);
+        Array.eachByteInversionByLink(arr21);
+        for (int i = 0; i < 3; i++) {
+            assertEquals(arr11[i], arr1[i]);
+            assertEquals(arr21[i], arr2[i]);
+        }
+    }
 }

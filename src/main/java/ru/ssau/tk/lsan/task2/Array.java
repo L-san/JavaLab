@@ -195,4 +195,11 @@ public final class Array extends Numbers{
         return answer;
     }
 
+    public static void eachByteInversionByLink(int[] arr) {
+        int[] answer = new int[arr.length];
+        for(int i = 0; i<arr.length;i++){
+            arr[i]=~arr[i];
+        }
+    }
+
 }
