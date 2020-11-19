@@ -215,4 +215,18 @@ public class ArrayTest {
             assertEquals(arr21[i], arr2[i]);
         }
     }
+
+    @Test
+    public void testOnePointTwentySix() {
+        int[] evenArr = Array.onePointTwentySix(new int[]{1,2,3,4,5,6});
+        int[] evenAns = new int[]{3,7,11};
+        int[] oddArr = Array.onePointTwentySix(new int[]{1,2,3,4,5});
+
+        for (int i = 0; i < 3; i++) {
+            assertEquals(evenArr[i],evenAns[i]);
+        }
+        for (int i = 0; i < 5; i++) {
+            assertEquals(oddArr[i],oddArr[i]);
+        }
+    }
 }

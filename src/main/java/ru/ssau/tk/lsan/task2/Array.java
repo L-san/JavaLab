@@ -202,4 +202,16 @@ public final class Array extends Numbers{
         }
     }
 
+    public static int[] onePointTwentySix(int[] arr){
+        if(arr.length%2==0){
+            int[] ans = new int[arr.length/2];
+            int j = 0;
+            for(int i = 0; i<ans.length;i++){
+                ans[i] = arr[j++]+arr[j++];
+            }
+            return ans;
+        }
+        return arr;
+    }
+
 }
