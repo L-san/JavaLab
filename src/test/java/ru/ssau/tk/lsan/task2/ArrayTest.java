@@ -229,4 +229,16 @@ public class ArrayTest {
             assertEquals(oddArr[i],oddArr[i]);
         }
     }
+
+    @Test
+    public void testIsEven() {
+        boolean[] evenArr = Array.isEven(new int[]{1,2,3,4,5,6});
+        boolean[] oddArr = Array.isEven(new int[]{1,10,3,24,5,2});
+        boolean[] ans = new boolean[]{false,true,false,true,false,true};
+
+        for (int i = 0; i < 6; i++) {
+            assertEquals(evenArr[i],ans[i]);
+            assertEquals(oddArr[i],ans[i]);
+        }
+    }
 }

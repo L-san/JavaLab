@@ -116,8 +116,8 @@ public final class Array extends Numbers{
     }
 
     public static boolean isInArray(Double n, Double[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == n) {
+        for (Double aDouble : arr) {
+            if (aDouble.equals(n)) {
                 return true;
             }
         }
@@ -125,8 +125,8 @@ public final class Array extends Numbers{
     }
 
     public static boolean isNullInArray(Integer[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == null) {
+        for (Integer integer : arr) {
+            if (integer == null) {
                 return true;
             }
         }
@@ -135,8 +135,8 @@ public final class Array extends Numbers{
 
     public static int howManyEven(Integer[] arr) {
         int cnt = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] % 2 == 0) {
+        for (Integer integer : arr) {
+            if (integer % 2 == 0) {
                 cnt++;
             }
         }
@@ -170,10 +170,10 @@ public final class Array extends Numbers{
     }
 
     public static Integer sumOfEven(Integer[] arr) {
-        Integer cnt = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] % 2 == 0) {
-                cnt += arr[i];
+        int cnt = 0;
+        for (Integer integer : arr) {
+            if (integer % 2 == 0) {
+                cnt += integer;
             }
         }
         return cnt;
@@ -196,7 +196,6 @@ public final class Array extends Numbers{
     }
 
     public static void eachByteInversionByLink(int[] arr) {
-        int[] answer = new int[arr.length];
         for(int i = 0; i<arr.length;i++){
             arr[i]=~arr[i];
         }
@@ -212,6 +211,14 @@ public final class Array extends Numbers{
             return ans;
         }
         return arr;
+    }
+
+    public static boolean[] isEven(int[] arr){
+        boolean[] ans = new boolean[arr.length];
+        for (int i = 0; i<arr.length;i++){
+            ans[i] = arr[i] % 2 == 0;
+        }
+        return ans;
     }
 
 }
