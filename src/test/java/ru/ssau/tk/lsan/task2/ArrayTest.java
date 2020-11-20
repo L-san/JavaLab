@@ -2,6 +2,8 @@ package ru.ssau.tk.lsan.task2;
 
 import org.testng.annotations.Test;
 
+import java.nio.ByteBuffer;
+
 import static org.testng.Assert.*;
 
 public class ArrayTest {
@@ -218,27 +220,36 @@ public class ArrayTest {
 
     @Test
     public void testOnePointTwentySix() {
-        int[] evenArr = Array.onePointTwentySix(new int[]{1,2,3,4,5,6});
-        int[] evenAns = new int[]{3,7,11};
-        int[] oddArr = Array.onePointTwentySix(new int[]{1,2,3,4,5});
+        int[] evenArr = Array.onePointTwentySix(new int[]{1, 2, 3, 4, 5, 6});
+        int[] evenAns = new int[]{3, 7, 11};
+        int[] oddArr = Array.onePointTwentySix(new int[]{1, 2, 3, 4, 5});
 
         for (int i = 0; i < 3; i++) {
-            assertEquals(evenArr[i],evenAns[i]);
+            assertEquals(evenArr[i], evenAns[i]);
         }
         for (int i = 0; i < 5; i++) {
-            assertEquals(oddArr[i],oddArr[i]);
+            assertEquals(oddArr[i], oddArr[i]);
         }
     }
 
     @Test
     public void testIsEven() {
-        boolean[] evenArr = Array.isEven(new int[]{1,2,3,4,5,6});
-        boolean[] oddArr = Array.isEven(new int[]{1,10,3,24,5,2});
-        boolean[] ans = new boolean[]{false,true,false,true,false,true};
+        boolean[] evenArr = Array.isEven(new int[]{1, 2, 3, 4, 5, 6});
+        boolean[] oddArr = Array.isEven(new int[]{1, 10, 3, 24, 5, 2});
+        boolean[] ans = new boolean[]{false, true, false, true, false, true};
 
         for (int i = 0; i < 6; i++) {
-            assertEquals(evenArr[i],ans[i]);
-            assertEquals(oddArr[i],ans[i]);
+            assertEquals(evenArr[i], ans[i]);
+            assertEquals(oddArr[i], ans[i]);
         }
     }
+
+    @Test
+    public void testSeparate() {
+        int[] arr = Array.separate(987654321123456789L);
+        long ans = Array.toLong(arr);
+        assertEquals(ans,987654321123456789L);
+    }
+
+
 }

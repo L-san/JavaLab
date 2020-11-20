@@ -1,6 +1,10 @@
 package ru.ssau.tk.lsan.task2;
 
-public final class Array extends Numbers{
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.LongBuffer;
+
+public final class Array extends Numbers {
     public static Double[] newEmptyDoubleArray(int size) {
         return new Double[size];
     }
@@ -189,36 +193,44 @@ public final class Array extends Numbers{
 
     public static int[] eachByteInversion(int[] arr) {
         int[] answer = new int[arr.length];
-        for(int i = 0; i<arr.length;i++){
-            answer[i]=~arr[i];
+        for (int i = 0; i < arr.length; i++) {
+            answer[i] = ~arr[i];
         }
         return answer;
     }
 
     public static void eachByteInversionByLink(int[] arr) {
-        for(int i = 0; i<arr.length;i++){
-            arr[i]=~arr[i];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = ~arr[i];
         }
     }
 
-    public static int[] onePointTwentySix(int[] arr){
-        if(arr.length%2==0){
-            int[] ans = new int[arr.length/2];
+    public static int[] onePointTwentySix(int[] arr) {
+        if (arr.length % 2 == 0) {
+            int[] ans = new int[arr.length / 2];
             int j = 0;
-            for(int i = 0; i<ans.length;i++){
-                ans[i] = arr[j++]+arr[j++];
+            for (int i = 0; i < ans.length; i++) {
+                ans[i] = arr[j++] + arr[j++];
             }
             return ans;
         }
         return arr;
     }
 
-    public static boolean[] isEven(int[] arr){
+    public static boolean[] isEven(int[] arr) {
         boolean[] ans = new boolean[arr.length];
-        for (int i = 0; i<arr.length;i++){
+        for (int i = 0; i < arr.length; i++) {
             ans[i] = arr[i] % 2 == 0;
         }
         return ans;
+    }
+
+    public static int[] separate(long num) {
+        return new int[]{(int) (num >> 32), (int) num};
+    }
+
+    public static long toLong(int[] arr) {
+        return ((long) arr[0] << 32) | ((long) arr[1]);
     }
 
 }
