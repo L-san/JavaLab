@@ -252,4 +252,12 @@ public class ArrayTest {
     }
 
 
+    @Test
+    public void testFillWithRealsFromIndex() {
+        int[] reals = new int[]{5,6,1,2,3,4};
+        int[] ans = Array.fillWithRealsFromIndex(2,6);
+        for (int i = 0; i<6;i++){
+            assertEquals(ans[i],reals[i]);
+        }
+    }
 }

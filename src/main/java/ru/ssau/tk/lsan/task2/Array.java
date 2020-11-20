@@ -233,4 +233,12 @@ public final class Array extends Numbers {
         return ((long) arr[0] << 32) | ((long) arr[1]);
     }
 
+    public static int[] fillWithRealsFromIndex(int index,int size){
+        int[] arr = new int[size];
+        for(int j = 1; j<=size;j++){
+            arr[index%size] = (index+j-(index++));
+        }
+        return arr;
+    }
+
 }
