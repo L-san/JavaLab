@@ -233,10 +233,22 @@ public final class Array extends Numbers {
         return ((long) arr[0] << 32) | ((long) arr[1]);
     }
 
-    public static int[] fillWithRealsFromIndex(int index,int size){
+    public static int[] fillWithRealsFromIndex(int index, int size) {
         int[] arr = new int[size];
-        for(int j = 1; j<=size;j++){
-            arr[index%size] = (index+j-(index++));
+        for (int j = 1; j <= size; j++) {
+            arr[index % size] = (index + j - (index++));
+        }
+        return arr;
+    }
+
+    public static int[][] eachDimensionLessByOne(int num) {
+        int[][] arr = new int[num][];
+        int cnt = 1;
+        for (int i = 0; i < num; i++) {
+            arr[i] = new int[num - i];
+            for (int j = 0; j < num - i; j++) {
+                arr[i][j] = cnt++;
+            }
         }
         return arr;
     }

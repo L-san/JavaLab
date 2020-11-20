@@ -260,4 +260,16 @@ public class ArrayTest {
             assertEquals(ans[i],reals[i]);
         }
     }
+
+    @Test
+    public void testEachDimensionLessByOne() {
+        int[][] reals = new int[][]{{1,2,3},{4,5},{6}};
+        int[][] ans = Array.eachDimensionLessByOne(3);
+        int cnt = 3;
+        for (int i = 0; i<3;i++){
+            for (int j = 0; j<cnt--;j++){
+                assertEquals(ans[i][j],reals[i][j]);
+            }
+        }
+    }
 }
