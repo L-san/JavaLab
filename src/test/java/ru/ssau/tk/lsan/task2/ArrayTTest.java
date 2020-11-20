@@ -13,8 +13,8 @@ public class ArrayTTest {
         final Integer[] arrInt = new Integer[]{2,4,13,4};
         final Double[] arrDouble = new Double[]{1d,5d,2d,2d,2d,40d};
 
-        assertEquals(test.occursMostOften(arrInt),4,delta);
-        assertEquals(test.occursMostOften(arrDouble),2d,delta);
+        assertEquals(ArrayT.occursMostOften(arrInt),4,delta);
+        assertEquals(ArrayT.occursMostOften(arrDouble),2d,delta);
     }
 
     @Test
@@ -22,8 +22,8 @@ public class ArrayTTest {
         final Integer[] arrInt = new Integer[]{2,4,13,4};
         final Double[] arrDouble = new Double[]{1d,5d,2d,2d,2d,40d};
 
-        assertEquals(test.getFirstIndexOf(arrInt,arrInt[1]),1,delta);
-        assertEquals(test.getFirstIndexOf(arrDouble,arrDouble[2]),2,delta);
+        assertEquals(ArrayT.getFirstIndexOf(arrInt,arrInt[1]),1,delta);
+        assertEquals(ArrayT.getFirstIndexOf(arrDouble,arrDouble[2]),2,delta);
     }
 
     @Test
@@ -32,12 +32,22 @@ public class ArrayTTest {
         final Integer[] arrIntAns = new Integer[]{4,4,13,2};
         final Double[] arrDouble = new Double[]{1d,5d,2d,40d};
         final Double[] arrDoubleAns = new Double[]{40d,5d,2d,1d};
-        test.swapFirstAndLastElement(arrInt);
-        test.swapFirstAndLastElement(arrDouble);
+        ArrayT.swapFirstAndLastElement(arrInt);
+        ArrayT.swapFirstAndLastElement(arrDouble);
         for(int i = 0; i<4;i++){
             assertEquals(arrInt[i],arrIntAns[i],delta);
             assertEquals(arrDouble[i],arrDoubleAns[i],delta);
         }
 
+    }
+
+    @Test
+    public void testIsNaN() {
+        final Double[] arrDouble = new Double[]{1d,5d,2d,40d};
+        ArrayT.isNaN(arrDouble);
+        final Double[] arrDoubleAns = new Double[]{1d,2d,5d,40d};
+        for(int i = 0;i<4;i++){
+            assertEquals(arrDouble[i],arrDoubleAns[i]);
+        }
     }
 }

@@ -1,9 +1,9 @@
 package ru.ssau.tk.lsan.task2;
 
-import java.util.Iterator;
+import java.util.Arrays;
 
 public class ArrayT {
-    <T extends Number> T occursMostOften(T[] arr) {
+    public static <T extends Number> T occursMostOften(T[] arr) {
         int count, maxcount, num;
          maxcount=1; num=0;
         for (int i = 0; i < arr.length; i++) {
@@ -23,20 +23,28 @@ public class ArrayT {
 
     }
 
-    <T extends Number> int getFirstIndexOf(T[] arr, T number) {
+    public static <T extends Number> int getFirstIndexOf(T[] arr, T number) {
         for(int i = 0; i<arr.length;i++){
-            if(arr[i]==number){
+            if(arr[i].equals(number)){
                 return i;
             }
         }
         return -1;
     }
 
-    <T extends Number> void swapFirstAndLastElement(T[] arr) {
+    public static <T extends Number> void swapFirstAndLastElement(T[] arr) {
         T auxiliary;
         auxiliary = arr[0];
         arr[0]=arr[arr.length-1];
         arr[arr.length-1] = auxiliary;
+    }
+
+    public static <T extends Number> void isNaN(T[] arr){
+        for(T t:arr){
+            if(!Double.isNaN((double)t)){
+                Arrays.sort(arr);
+            }
+        }
     }
 
 }
