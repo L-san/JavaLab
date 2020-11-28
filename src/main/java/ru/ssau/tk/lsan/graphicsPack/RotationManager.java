@@ -36,22 +36,30 @@ public class RotationManager extends Thread {
 
     public void updateNodes(double duration) {
         double[] a = parser(0, 1);
-        double[] m = parser(12, 1);
+        double[] m = parser(12, 0);
         //double[] m = new double[]{m0[2],m0[1],m0[0]};
-        double[] g = parser(6, 1);
-        //double[] g = new double[]{0d,0d,360*(2<<14)/10};
+        double[] g = parser(6, 1);;
         initial.calculatePosition(a, m, g);
         double[] q = initial.getQuaternion();
         //q_prev = LinearAlgebraOperations.quat_mult(q_prev,q);
-        q_prev =q;
-        double angle = Math.acos(q_prev[0]);
-        double q1 = q_prev[1] / Math.sin(angle);
-        double q2 = q_prev[2] / Math.sin(angle);
-        double q3 = q_prev[3] / Math.sin(angle);
-        Point3D rotationAxis = new Point3D(-q2, q3, q1);
+
+        double angle = Math.acos(q[0]);
+        double q1,q2,q3;
+        if (Math.sin(angle)!=0){
+            q1 = q[1] / Math.sin(angle);
+            q2 = q[2] / Math.sin(angle);
+            q3 = q[3] / Math.sin(angle);
+            q_prev = new double[]{angle,q1,q2,q3};
+        }else{
+            q1 = q_prev[1];
+            q2 = q_prev[2];
+            q3 = q_prev[3];
+        }
+        Point3D rotationAxis = new Point3D(q1,q2,q3);
+        //Point3D rotationAxis = new Point3D(-q2, q3, q1);
         world.rotateBox(box, duration, 2*angle*180/Math.PI, rotationAxis);
         world.updateText(label, getString(a,m,g));
-        //System.out.println("angle: "+2*angle*180/Math.PI+" q1: "+q1+" q2: "+q2+" q3: "+q3);
+        System.out.println("angle: "+2*angle*180/Math.PI+" q1: "+q1+" q2: "+q2+" q3: "+q3);
     }
 
     @Override

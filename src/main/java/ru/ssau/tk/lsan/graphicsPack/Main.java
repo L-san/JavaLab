@@ -9,10 +9,7 @@ import javafx.scene.shape.Box;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.ejml.simple.SimpleMatrix;
-import ru.ssau.tk.lsan.graphicsPack.algorithms.Algorithm;
-import ru.ssau.tk.lsan.graphicsPack.algorithms.MadgwickAlgorithm;
-import ru.ssau.tk.lsan.graphicsPack.algorithms.MdgwckAlgorithm;
-import ru.ssau.tk.lsan.graphicsPack.algorithms.SvdAlgorithm;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.*;
 import ru.ssau.tk.lsan.graphicsPack.socket.Client;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -31,22 +28,18 @@ public class Main extends Application {
         ArrayBlockingQueue<Byte> exchanger = new ArrayBlockingQueue<>(18);
         Thread clientSocketThread = new Client(exchanger);
         double gyroMeasError = 3.14159265358979 * (0.01f / 180.0f);
-        double gyroMeasDrift = 3.14159265358979 * (0.01f / 180.0f);
+        double gyroMeasDrift = 3.14159265358979 * (0.5f / 180.0f);
         //double zeta = Math.sqrt(3.0f / 4.0f) * gyroMeasDrift;
         //double beta = Math.sqrt(3.0f / 4.0f) * gyroMeasError;
         double zeta = 0;
         double beta = 0;
 
         double[] q_est = new double[]{1, 0, 0, 0};
-        double[] omega_eps_prev = new double[]{0, 0, 0, 0};
-        double delta_T = 1;
-        double[] m = new double[]{0.3040, 0.0654, 0.9504};
-        double[] g = new double[]{0, 0, -1};
-        double[] vector = new double[]{g[0], m[0], g[1], m[1], g[2], m[2]};
-        SimpleMatrix initVec = new SimpleMatrix(3, 2, true, vector);
-        Algorithm initial = new MadgwickAlgorithm(q_est, omega_eps_prev, beta, zeta, delta_T);
+        double delta_T = 0.1;
+
+        //Algorithm initial = new MadgwickAlgorithm(q_est, omega_eps_prev, beta, zeta, delta_T);
+        Algorithm initial = new Madgwick(q_est, beta, zeta, delta_T);
         //Algorithm initial = new MdgwckAlgorithm(q_est, beta, zeta, delta_T);
-        //Algorithm initial = new SvdAlgorithm(initVec);
 
         Thread rotationManager = new RotationManager(exchanger, myWorld, box, label, initial, 18,delta_T);
         clientSocketThread.setDaemon(true);

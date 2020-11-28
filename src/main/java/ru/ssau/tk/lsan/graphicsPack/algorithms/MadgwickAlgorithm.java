@@ -28,7 +28,7 @@ public class MadgwickAlgorithm extends LinearAlgebraOperations implements Algori
         this.q_est = q_est_0;
         this.omega_eps_prev = omega_eps_prev_0;
         this.q_omega = new double[]{0, 0, 0, 0};
-        this.filter = new KalmanFilter(new double[]{0.1811e-04,-0.7350e-04,0.1598e-04},0d,50d);
+        this.filter = new KalmanFilter(new double[]{0.030543261909900764, -0.08552113334772214 ,-0.13999999999999999},0d,50d);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MadgwickAlgorithm extends LinearAlgebraOperations implements Algori
         //m = matrixMultiplication(magnetometerDataCorrectionMatrix,matrixDivision(m,magnetometerShift,3));
         m = normalizeVector(m);
         //g = normalizeVector(g);
-        g = matrixMultiplication(g, Math.PI / (180 * (2 << 13)));
+        g = matrixMultiplication(g, Math.PI*70 / (180 * 1000));//ля матлаба ето Math.PI / (180 *(2 << 13))
         //filter.doFiltering(g);
         //filter.getX();
         System.out.println("g0: "+g[0]+" g1: "+g[1]+" g2:"+g[2]*180/Math.PI);
