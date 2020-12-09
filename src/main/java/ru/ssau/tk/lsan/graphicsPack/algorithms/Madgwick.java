@@ -23,7 +23,7 @@ public class Madgwick implements Algorithm {
     }
 
     @Override
-    public void calculatePosition(double[] a, double[] m, double[] g) {
+    public void calculatePosition(double[] a, double[] m, double[] g) {/*
         double wx, wy, wz, w_eps_x, w_eps_y, w_eps_z;
         double[] omega_c = new double[4];
 
@@ -89,5 +89,5 @@ public class Madgwick implements Algorithm {
         q_est[3] = q_est[3] + 0.5 * (q_est[0] * wz + q_est[1] * wy - q_est[2] * wx) * dt;
 
 
-    }
+    */}
 }

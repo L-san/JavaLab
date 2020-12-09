@@ -1,5 +1,6 @@
 package ru.ssau.tk.lsan.task1;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -43,4 +44,12 @@ public class PersonTest {
     public void testTestToString() {
         assertEquals(testSmb.toString(),"Somebody OnceToldMe");
     }
+
+    @Test
+    public void testFirstLastName() {
+
+        assertEquals(Person.FirstLastName(testSmb),"Somebody OnceToldMe");
+        Assert.assertThrows(NullPointerException.class, () -> {Person.FirstLastName(null);});
+
+        }
 }

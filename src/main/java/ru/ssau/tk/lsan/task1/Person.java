@@ -50,6 +50,10 @@ public class Person {
 
     @Override
     public String toString() {
-        return new String(getFirstName()+" "+getLastName());
+        return getFirstName() + " " + getLastName();
+    }
+
+    public static String FirstLastName(Person person){
+        return person.toString();
     }
 }
