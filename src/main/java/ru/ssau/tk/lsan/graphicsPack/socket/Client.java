@@ -1,8 +1,8 @@
 package ru.ssau.tk.lsan.graphicsPack.socket;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
-import java.nio.ByteBuffer;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Client extends Thread {
@@ -27,7 +27,7 @@ public class Client extends Thread {
                     while (line[0] != (byte) '\n') {
                         line = in.readNBytes(1);
                     }
-                    ; // в буффере может лежать полстроки и мусор, потому скипнем сразу до следующей
+                    // в буффере может лежать полстроки и мусор, потому скипнем сразу до следующей
                     while (true) {
                         message = reader(18);
                         for (int i = 0; i < message.length; i++) {

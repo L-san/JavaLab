@@ -4,12 +4,11 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.shape.Box;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.ejml.simple.SimpleMatrix;
-import ru.ssau.tk.lsan.graphicsPack.algorithms.*;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.Algorithm;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.Madgwick;
 import ru.ssau.tk.lsan.graphicsPack.socket.Client;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -17,7 +16,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         World myWorld = new World();
         Box box = myWorld.newBox();
         Group root = new Group();
@@ -27,12 +26,13 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1280, 720);
         ArrayBlockingQueue<Byte> exchanger = new ArrayBlockingQueue<>(18);
         Thread clientSocketThread = new Client(exchanger);
+
         double gyroMeasError = 3.14159265358979 * (0.01f / 180.0f);
         double gyroMeasDrift = 3.14159265358979 * (0.5f / 180.0f);
-        //double zeta = Math.sqrt(3.0f / 4.0f) * gyroMeasDrift;
-        //double beta = Math.sqrt(3.0f / 4.0f) * gyroMeasError;
-        double zeta = 0;
-        double beta = 0;
+        double zeta = Math.sqrt(3.0f / 4.0f) * gyroMeasDrift;
+        double beta = Math.sqrt(3.0f / 4.0f) * gyroMeasError;
+        //double zeta = 0;
+       // double beta = 0;
 
         double[] q_est = new double[]{1, 0, 0, 0};
         double delta_T = 0.1;
