@@ -48,12 +48,12 @@ public class Madgwick implements Algorithm {
 
         //direction of the magnetic field
         double h_x, h_y, h_z;
-        h_x = 2*(m[3]*q_est[0]*q_est[2]+m[2]*q_est[1]*q_est[2]-m[2]*q_est[0]*q_est[3]+m[3]*q_est[1]*q_est[3])+m[1]*(q_est[0]*q_est[0]+q_est[1]*q_est[1]-q_est[2]*q_est[2]-q_est[3]*q_est[3]);
-        h_y = 2*(-m[3]*q_est[0]*q_est[1]+m[1]*q_est[1]*q_est[2]+m[1]*q_est[0]*q_est[3]+m[3]*q_est[2]*q_est[3])+m[2]*(q_est[0]*q_est[0]-q_est[1]*q_est[1]+q_est[2]*q_est[2]-q_est[3]*q_est[3]);
-        h_z = 2*(m[2]*q_est[0]*q_est[1]-m[1]*q_est[0]*q_est[2]+m[1]*q_est[1]*q_est[3]+m[2]*q_est[2]*q_est[3])+m[3]*(q_est[0]*q_est[0]-q_est[1]*q_est[1]-q_est[2]*q_est[2]+q_est[3]*q_est[3]);
+        h_x = 2 * (m[3] * q_est[0] * q_est[2] + m[2] * q_est[1] * q_est[2] - m[2] * q_est[0] * q_est[3] + m[3] * q_est[1] * q_est[3]) + m[1] * (q_est[0] * q_est[0] + q_est[1] * q_est[1] - q_est[2] * q_est[2] - q_est[3] * q_est[3]);
+        h_y = 2 * (-m[3] * q_est[0] * q_est[1] + m[1] * q_est[1] * q_est[2] + m[1] * q_est[0] * q_est[3] + m[3] * q_est[2] * q_est[3]) + m[2] * (q_est[0] * q_est[0] - q_est[1] * q_est[1] + q_est[2] * q_est[2] - q_est[3] * q_est[3]);
+        h_z = 2 * (m[2] * q_est[0] * q_est[1] - m[1] * q_est[0] * q_est[2] + m[1] * q_est[1] * q_est[3] + m[2] * q_est[2] * q_est[3]) + m[3] * (q_est[0] * q_est[0] - q_est[1] * q_est[1] - q_est[2] * q_est[2] + q_est[3] * q_est[3]);
         //reference direction or the magnetic field
         double b_x, b_z;
-        b_x = Math.sqrt(h_x*h_x+h_y*h_y);
+        b_x = Math.sqrt(h_x * h_x + h_y * h_y);
         b_z = h_z;
 
         double[] f_m = new double[]{
@@ -84,28 +84,35 @@ public class Madgwick implements Algorithm {
         w_eps_y = 2 * (q_eps_dot[2] * q_est[0] + q_eps_dot[3] * q_est[1] - q_eps_dot[0] * q_est[2] - q_eps_dot[1] * q_est[3]);
         w_eps_z = 2 * (q_eps_dot[3] * q_est[0] - q_eps_dot[2] * q_est[1] + q_eps_dot[1] * q_est[2] - q_eps_dot[0] * q_est[3]);
 
-        w_bx += w_eps_x*zeta * dt;
-        w_by += w_eps_y*zeta * dt;
-        w_bz += w_eps_z*zeta * dt;
+        w_bx += w_eps_x * zeta * dt;
+        w_by += w_eps_y * zeta * dt;
+        w_bz += w_eps_z * zeta * dt;
 
         w_c[1] = wx - w_bx;
         w_c[2] = wy - w_by;
         w_c[3] = wz - w_bz;
 
-        double[] q_est_dot = new double[4];
+        //use compensated w in poisson's equations!!!
+        wx = w_c[1];
+        wy = w_c[2];
+        wz = w_c[3];
         double[] q_omega_dot = new double[4];
-        q_omega_dot[0] = - 0.5 * (q_est[1] * wx + q_est[2] * wy + q_est[3] * wz);
+        q_omega_dot[0] = -0.5 * (q_est[1] * wx + q_est[2] * wy + q_est[3] * wz);
         q_omega_dot[1] = 0.5 * (q_est[0] * wx + q_est[2] * wz - q_est[3] * wy);
         q_omega_dot[2] = 0.5 * (q_est[0] * wy + q_est[3] * wx - q_est[1] * wz);
         q_omega_dot[3] = 0.5 * (q_est[0] * wz + q_est[1] * wy - q_est[2] * wx);
 
+        double[] q_est_dot = new double[4];
+        q_est_dot[0] = q_omega_dot[0] - beta * q_eps_dot[0];
+        q_est_dot[1] = q_omega_dot[1] - beta * q_eps_dot[1];
+        q_est_dot[2] = q_omega_dot[2] - beta * q_eps_dot[2];
+        q_est_dot[3] = q_omega_dot[3] - beta * q_eps_dot[3];
+
 
         //poisson equations
-        q_est[0] = q_est[0]  * dt;
-        q_est[1] = q_est[1]  * dt;
-        q_est[2] = q_est[2]  * dt;
-        q_est[3] = q_est[3]  * dt;
-
-
+        q_est[0] = q_est[0] + q_est_dot[0] * dt;
+        q_est[1] = q_est[1] + q_est_dot[1] * dt;
+        q_est[2] = q_est[2] + q_est_dot[2] * dt;
+        q_est[3] = q_est[3] + q_est_dot[3] * dt;
     }
 }
