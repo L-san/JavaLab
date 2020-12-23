@@ -23,17 +23,19 @@ public class Madgwick implements Algorithm {
     }
 
     @Override
-    public void calculatePosition(double[] a, double[] m, double[] g) {/*
+    public void calculatePosition(double[] a, double[] m, double[] g) {
         double wx, wy, wz, w_eps_x, w_eps_y, w_eps_z;
-        double[] omega_c = new double[4];
+        double[] w_c = new double[4];
 
         //System.out.println(q_est0+" "+ q_est1+" "+q_est2+" "+q_est3);
+        //gyro measurements
         double k = Math.PI / (180 * (2 << 13));
         wx = g[0] * k;
         wy = g[1] * k;
         wz = g[2] * k;
         System.out.println(wx + " " + wy + " " + wz);
         //и только потом уже градиентный спуск!!!
+        //gradient descent algorithm
         double[] f_a = new double[]{
                 2 * (q_est[1] * q_est[3] - q_est[0] * q_est[2]) - a[0],
                 2 * (q_est[0] * q_est[1] + q_est[2] * q_est[3]) - a[1],
@@ -43,7 +45,16 @@ public class Madgwick implements Algorithm {
                 {-2 * q_est[2], 2 * q_est[3], -2 * q_est[0], 2 * q_est[1]},
                 {2 * q_est[1], 2 * q_est[0], 2 * q_est[3], 2 * q_est[2]},
                 {0, -4 * q_est[1], -4 * q_est[2], 0}};
+
+        //direction of the magnetic field
+        double h_x, h_y, h_z;
+        h_x = 2*(m[3]*q_est[0]*q_est[2]+m[2]*q_est[1]*q_est[2]-m[2]*q_est[0]*q_est[3]+m[3]*q_est[1]*q_est[3])+m[1]*(q_est[0]*q_est[0]+q_est[1]*q_est[1]-q_est[2]*q_est[2]-q_est[3]*q_est[3]);
+        h_y = 2*(-m[3]*q_est[0]*q_est[1]+m[1]*q_est[1]*q_est[2]+m[1]*q_est[0]*q_est[3]+m[3]*q_est[2]*q_est[3])+m[2]*(q_est[0]*q_est[0]-q_est[1]*q_est[1]+q_est[2]*q_est[2]-q_est[3]*q_est[3]);
+        h_z = 2*(m[2]*q_est[0]*q_est[1]-m[1]*q_est[0]*q_est[2]+m[1]*q_est[1]*q_est[3]+m[2]*q_est[2]*q_est[3])+m[3]*(q_est[0]*q_est[0]-q_est[1]*q_est[1]-q_est[2]*q_est[2]+q_est[3]*q_est[3]);
+        //reference direction or the magnetic field
         double b_x, b_z;
+        b_x = Math.sqrt(h_x*h_x+h_y*h_y);
+        b_z = h_z;
 
         double[] f_m = new double[]{
                 2 * b_x * (0.5 - q_est[2] * q_est[2] - q_est[3] * q_est[3]) + 2 * b_z * (q_est[1] * q_est[3] - q_est[0] * q_est[2]) - m[0],
@@ -60,16 +71,15 @@ public class Madgwick implements Algorithm {
                 f_a[0] * J_a[0][1] + f_a[1] * J_a[1][1] + f_a[2] * J_a[2][1] + f_m[0] * J_m[0][1] + f_m[1] * J_m[1][1] + f_m[2] * J_m[2][1],
                 f_a[0] * J_a[0][2] + f_a[1] * J_a[1][2] + f_a[2] * J_a[2][2] + f_m[0] * J_m[0][2] + f_m[1] * J_m[1][2] + f_m[2] * J_m[2][2],
                 f_a[0] * J_a[0][3] + f_a[1] * J_a[1][3] + f_a[2] * J_a[2][3] + f_m[0] * J_m[0][3] + f_m[1] * J_m[1][3] + f_m[2] * J_m[2][3]};
-        double n = Math.sqrt(gradient[0] * gradient[0] + gradient[1] * gradient[1] + gradient[2] * gradient[2] + gradient[3] * gradient[3]);
 
+        double n = Math.sqrt(gradient[0] * gradient[0] + gradient[1] * gradient[1] + gradient[2] * gradient[2] + gradient[3] * gradient[3]);
         double[] q_eps_dot = new double[4];
         q_eps_dot[0] = gradient[0] / n;
         q_eps_dot[1] = gradient[1] / n;
         q_eps_dot[2] = gradient[2] / n;
         q_eps_dot[3] = gradient[3] / n;
 
-        //потом корректировки для омеги
-
+        //compensate gyro drift
         w_eps_x = 2 * (q_eps_dot[1] * q_est[0] - q_eps_dot[0] * q_est[1] - q_eps_dot[3] * q_est[2] + q_eps_dot[2] * q_est[3]);
         w_eps_y = 2 * (q_eps_dot[2] * q_est[0] + q_eps_dot[3] * q_est[1] - q_eps_dot[0] * q_est[2] - q_eps_dot[1] * q_est[3]);
         w_eps_z = 2 * (q_eps_dot[3] * q_est[0] - q_eps_dot[2] * q_est[1] + q_eps_dot[1] * q_est[2] - q_eps_dot[0] * q_est[3]);
@@ -78,16 +88,24 @@ public class Madgwick implements Algorithm {
         w_by += w_eps_y*zeta * dt;
         w_bz += w_eps_z*zeta * dt;
 
-        omega_c[0] = wx - w_bx;
-        omega_c[0] = wy - w_by;
-        omega_c[0] = wz - w_bz;
+        w_c[1] = wx - w_bx;
+        w_c[2] = wy - w_by;
+        w_c[3] = wz - w_bz;
 
-        //puasson's equations at first
-        q_est[0] = q_est[0] - 0.5 * (q_est[1] * wx + q_est[2] * wy + q_est[3] * wz) * dt;
-        q_est[1] = q_est[1] + 0.5 * (q_est[0] * wx + q_est[2] * wz - q_est[3] * wy) * dt;
-        q_est[2] = q_est[2] + 0.5 * (q_est[0] * wy + q_est[3] * wx - q_est[1] * wz) * dt;
-        q_est[3] = q_est[3] + 0.5 * (q_est[0] * wz + q_est[1] * wy - q_est[2] * wx) * dt;
+        double[] q_est_dot = new double[4];
+        double[] q_omega_dot = new double[4];
+        q_omega_dot[0] = - 0.5 * (q_est[1] * wx + q_est[2] * wy + q_est[3] * wz);
+        q_omega_dot[1] = 0.5 * (q_est[0] * wx + q_est[2] * wz - q_est[3] * wy);
+        q_omega_dot[2] = 0.5 * (q_est[0] * wy + q_est[3] * wx - q_est[1] * wz);
+        q_omega_dot[3] = 0.5 * (q_est[0] * wz + q_est[1] * wy - q_est[2] * wx);
 
 
-    */}
+        //poisson equations
+        q_est[0] = q_est[0]  * dt;
+        q_est[1] = q_est[1]  * dt;
+        q_est[2] = q_est[2]  * dt;
+        q_est[3] = q_est[3]  * dt;
+
+
+    }
 }
