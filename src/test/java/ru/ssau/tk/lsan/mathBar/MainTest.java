@@ -27,4 +27,9 @@ public class MainTest extends MadgwickAlgorithm{
         }
     }
 
+    @Test
+    public void testForE(){
+        double trtrt = 7e-2;
+    }
+
 }

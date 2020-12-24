@@ -27,12 +27,12 @@ public class Main extends Application {
         ArrayBlockingQueue<Byte> exchanger = new ArrayBlockingQueue<>(18);
         Thread clientSocketThread = new Client(exchanger);
 
-        double gyroMeasError = 3.14159265358979 * (0.01f / 180.0f);
-        double gyroMeasDrift = 3.14159265358979 * (0.5f / 180.0f);
+        double gyroMeasError = 3.14159265358979 * (1.0f / 180.0f);
+        double gyroMeasDrift = 3.14159265358979 * (0.1f / 180.0f);
         double zeta = Math.sqrt(3.0f / 4.0f) * gyroMeasDrift;
         double beta = Math.sqrt(3.0f / 4.0f) * gyroMeasError;
         //double zeta = 0;
-       // double beta = 0;
+        //double beta = 0;
 
         double[] q_est = new double[]{1, 0, 0, 0};
         double delta_T = 0.1;

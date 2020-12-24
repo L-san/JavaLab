@@ -27,7 +27,8 @@ public class Madgwick implements Algorithm {
 
         //System.out.println(q_est0+" "+ q_est1+" "+q_est2+" "+q_est3);
         //gyro measurements
-        double k = Math.PI / (180 * (2 << 13));
+        // double k = Math.PI / (180 * (2 << 13));
+        double k = Math.PI / (180 * 7);//70 mdps/LSB
         wx = g[0] * k;
         wy = g[1] * k;
         wz = g[2] * k;
@@ -111,9 +112,9 @@ public class Madgwick implements Algorithm {
         w_c[3] = wz - w_bz;
 
         //use compensated w in poisson's equations!!!
-        //wx = w_c[1];
-        //wy = w_c[2];
-        //wz = w_c[3];
+        wx = w_c[1];
+        wy = w_c[2];
+        wz = w_c[3];
         double[] q_omega_dot = new double[4];
         q_omega_dot[0] = -0.5 * (q_est[1] * wx + q_est[2] * wy + q_est[3] * wz);
         q_omega_dot[1] = 0.5 * (q_est[0] * wx + q_est[2] * wz - q_est[3] * wy);
