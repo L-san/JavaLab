@@ -24,15 +24,14 @@ public class Madgwick implements Algorithm {
     public void calculatePosition(double[] a, double[] m, double[] g) {
         double wx, wy, wz, w_eps_x, w_eps_y, w_eps_z;
         double[] w_c = new double[4];
-
         //System.out.println(q_est0+" "+ q_est1+" "+q_est2+" "+q_est3);
         //gyro measurements
         // double k = Math.PI / (180 * (2 << 13));
-        double k = Math.PI / (180 * 7);//70 mdps/LSB
+        double k = Math.PI / (180 * 7e-1);//70 mdps/LSB
         wx = g[0] * k;
         wy = g[1] * k;
         wz = g[2] * k;
-        System.out.println(wx + " " + wy + " " + wz);
+        //System.out.println(wx + " " + wy + " " + wz);
 
         double nm = Math.sqrt(m[0] * m[0] + m[1] * m[1] + m[2] * m[2]);
         if (nm == 0) {

@@ -5,6 +5,7 @@ import javafx.geometry.Point3D;
 import javafx.scene.shape.Box;
 import javafx.scene.text.Text;
 import ru.ssau.tk.lsan.graphicsPack.algorithms.Algorithm;
+import ru.ssau.tk.lsan.graphicsPack.algorithms.KalmanFilter;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -12,7 +13,11 @@ import java.util.concurrent.ArrayBlockingQueue;
 import static java.lang.String.format;
 
 public class RotationManager extends Thread {
+    private final KalmanFilter filterG = new KalmanFilter(50,0);
+    private final KalmanFilter filterA = new KalmanFilter(60,0);
+    private final KalmanFilter filterM = new KalmanFilter(60,0);
     private static ArrayBlockingQueue<Byte> exchanger;
+    private static ArrayBlockingQueue<String> messageExchanger;
     protected byte[] message;
     protected World world;
     protected Box box;
@@ -22,8 +27,9 @@ public class RotationManager extends Thread {
     private double[] q_prev;
     private double prev_angle = 0;
 
-    public RotationManager(ArrayBlockingQueue<Byte> ex, World tWorld, Box tBox, Text tLabel, Algorithm initial0, int len, double time0) {
+    public RotationManager(ArrayBlockingQueue<Byte> ex,ArrayBlockingQueue<String> message ,World tWorld, Box tBox, Text tLabel, Algorithm initial0, int len, double time0) {
         exchanger = ex;
+        messageExchanger = message;
         this.world = tWorld;
         this.box = tBox;
         this.message = new byte[len];
@@ -33,11 +39,20 @@ public class RotationManager extends Thread {
         this.q_prev = new double[]{1,0,0,0};
     }
 
-    public void updateNodes(double duration) {
+    public void updateNodes(double duration) throws InterruptedException {
         double[] a = parser(0, 1);
-        double[] m = parser(12, 0);
-        double[] g = parser(6, 1);;
-        algorithm.calculatePosition(a, m, g);
+        double[] m = parser(12, 1);
+        double[] g = parser(6, 1);
+        filterG.doFiltering(g);
+        filterA.doFiltering(a);
+        filterM.doFiltering(m);
+        double[] g0 = filterG.getX_hat();
+        double[] a0 = filterA.getX_hat();
+        double[] m0 = filterM.getX_hat();
+        messageExchanger.put(g[0]+" "+g[1]+" "+g[2]+" "+g0[0]+" "+g0[1]+" "+g0[2]);
+       // messageExchanger.put(m[0]+" "+m[1]+" "+m[2]+" "+m0[0]+" "+m0[1]+" "+m0[2]);
+        algorithm.calculatePosition(a0, m0, g0);
+        //algorithm.calculatePosition(a, m, g);
         double[] q = algorithm.getQuaternion();
 
         double angle = Math.acos(q[0]);
@@ -67,7 +82,11 @@ public class RotationManager extends Thread {
         try {
             Runnable updater = () -> {
                 if (message != null) {
-                    updateNodes(time);
+                    try {
+                        updateNodes(time);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             };
             try {
@@ -109,7 +128,8 @@ public class RotationManager extends Thread {
 
     public int toInt(byte hb, byte lb) {
         ByteBuffer bb = ByteBuffer.wrap(new byte[]{hb, lb});
-        return bb.getShort();
+        short ans = bb.getShort();
+        return ans;
     }
 
     public String getString(double[] a, double[] m, double[] g) {
