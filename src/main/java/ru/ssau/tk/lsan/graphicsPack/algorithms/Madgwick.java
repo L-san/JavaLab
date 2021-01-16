@@ -26,8 +26,7 @@ public class Madgwick implements Algorithm {
         double[] w_c = new double[4];
         //System.out.println(q_est0+" "+ q_est1+" "+q_est2+" "+q_est3);
         //gyro measurements
-        // double k = Math.PI / (180 * (2 << 13));
-        double k = Math.PI / (180 * 7e-1);//70 mdps/LSB
+        double k = Math.PI*0.07/180;//70 mdps/LSB
         wx = g[0] * k;
         wy = g[1] * k;
         wz = g[2] * k;
@@ -49,6 +48,7 @@ public class Madgwick implements Algorithm {
         a[1] /= na;
         a[2] /= na;
 
+        //System.out.println("a = " +  a[0] + " " + a[1] + " "+a[2]);
         //и только потом уже градиентный спуск!!!
         //gradient descent algorithm
         double[] f_a = new double[]{
