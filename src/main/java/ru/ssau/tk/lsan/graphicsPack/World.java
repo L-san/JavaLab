@@ -8,8 +8,6 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
-import javafx.util.Duration;
 
 public class World {
     protected Box newBox() {
@@ -35,13 +33,10 @@ public class World {
         return text;
     }
 
-    protected final void rotateBox(Box box, double duration, double angle, Point3D rotationAxis) {
+    protected final void rotateBox(Box box, double angle, Point3D rotationAxis) {
         RotateTransition rotate = new RotateTransition();
         rotate.setByAngle(angle);
-        //rotate.setCycleCount(500);
-        rotate.setDuration(Duration.millis(duration*1000));
         rotate.setAxis(rotationAxis);
-        rotate.setAutoReverse(true);
         rotate.setNode(box);
         rotate.play();
     }

@@ -5,17 +5,12 @@ import javafx.geometry.Point3D;
 import javafx.scene.shape.Box;
 import javafx.scene.text.Text;
 import ru.ssau.tk.lsan.graphicsPack.algorithms.Algorithm;
-import ru.ssau.tk.lsan.graphicsPack.algorithms.KalmanFilter;
-
 import java.nio.ByteBuffer;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import static java.lang.String.format;
 
 public class RotationManager extends Thread {
-    private final KalmanFilter filterG = new KalmanFilter(50, 0);
-    private final KalmanFilter filterA = new KalmanFilter(50, 0);
-    private final KalmanFilter filterM = new KalmanFilter(50, 0);
     private static ArrayBlockingQueue<Byte> exchanger;
     private static ArrayBlockingQueue<String> messageExchanger;
     protected byte[] message;
@@ -23,10 +18,8 @@ public class RotationManager extends Thread {
     protected Box box;
     protected Algorithm algorithm;
     protected Text label;
-    private final double time;
-    private double[] qprev;
 
-    public RotationManager(ArrayBlockingQueue<Byte> ex, ArrayBlockingQueue<String> message, World tWorld, Box tBox, Text tLabel, Algorithm initial0, int len, double time0) {
+    public RotationManager(ArrayBlockingQueue<Byte> ex, ArrayBlockingQueue<String> message, World tWorld, Box tBox, Text tLabel, Algorithm initial0, int len) {
         exchanger = ex;
         messageExchanger = message;
         this.world = tWorld;
@@ -34,42 +27,21 @@ public class RotationManager extends Thread {
         this.message = new byte[len];
         this.algorithm = initial0;
         this.label = tLabel;
-        this.time = time0;
-        this.qprev = new double[]{1, 0, 0, 0};
     }
 
-    public void updateNodes(double duration) throws InterruptedException {
+    public void updateNodes() {
         double[] a = parser(0, 1);
         double[] m = parser(12, 1);
         double[] g = parser(6, 1);
-        //filterG.doFiltering(g);
-        //filterA.doFiltering(a);
-        //filterM.doFiltering(m);
-        //double[] g0 = filterG.getX_hat();
-        //double[] a0 = filterA.getX_hat();
-        //double[] m0 = filterM.getX_hat();
-        //messageExchanger.put(g[0]+" "+g[1]+" "+g[2]+" "+g0[0]+" "+g0[1]+" "+g0[2]);
-        // messageExchanger.put(m[0]+" "+m[1]+" "+m[2]+" "+m0[0]+" "+m0[1]+" "+m0[2]);
-        //algorithm.calculatePosition(a0, m0, g0);
-        algorithm.calculatePosition(a.clone(), m.clone(), g.clone());
-        //System.out.println(getString(a,m,g));
+
+        algorithm.calculatePosition(a, m, g);
         double[] q = algorithm.getQuaternion();
 
-        //	немножко декомпозиции поворотов (/￣ー￣)/~~☆’.･.･:★’.･.･:☆
-      /*  double[] Q = {q[0] * qprev[0] + q[1] * qprev[1] + q[2] * qprev[2] + q[3] * qprev[3],
-                      q[1] * qprev[0] - q[0] * qprev[1] + q[3] * qprev[2] - q[2] * qprev[3],
-                      q[2] * qprev[0] - q[3] * qprev[1] - q[0] * qprev[2] + q[1] * qprev[3],
-                      q[3] * qprev[0] + q[2] * qprev[1] - q[1] * qprev[2] - q[0] * qprev[3]};*/
-
-
-        qprev = q;
-        double angle = 2 * Math.acos(q[0]);
-
-        //double qprevN = qprev[0]*qprev[0]+qprev[1]*qprev[1]+qprev[2]*qprev[2]+qprev[3]*qprev[3];
-        //double qN = q[0]*q[0]+q[1]*q[1]+q[2]*q[2]+q[3]*q[3];
+        //(/￣ー￣)/~~☆’.･.･:★’.･.･:☆
+        double angle;
+        angle = 2 * Math.acos(q[0]);
         Point3D rotationAxis = new Point3D(-q[2], q[3], q[1]);
-        //System.out.println("qN: " + qN +" qprevN: "+qprevN);
-        world.rotateBox(box, duration / 100, angle * 180 / Math.PI, rotationAxis);
+        world.rotateBox(box, angle * 180 / Math.PI, rotationAxis);
         world.updateText(label, getString(a, m, g));
         System.out.println("angle: " + angle * 180 / Math.PI + " q0: " + q[0] + " q1: " + q[1] + " q2: " + q[2] + " q3: " + q[3]);
     }
@@ -79,11 +51,7 @@ public class RotationManager extends Thread {
         try {
             Runnable updater = () -> {
                 if (message != null) {
-                    try {
-                        updateNodes(time);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    updateNodes();
                 }
             };
             try {

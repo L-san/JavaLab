@@ -1,14 +1,10 @@
 package ru.ssau.tk.lsan.graphicsPack;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Box;
@@ -37,19 +33,15 @@ public class Main extends Application {
         ArrayBlockingQueue<String> messageExchanger = new ArrayBlockingQueue<>(1);
         Thread client2PlotterThread = new Client2Plotter(messageExchanger);
 
-        double gyroMeasError = 3.14159265358979 * (0.0f / 180.0f);
-        double gyroMeasDrift = 3.14159265358979 * (0.0f / 180.0f);
-        double zeta = Math.sqrt(3.0f / 4.0f) * gyroMeasDrift;
-        double beta = Math.sqrt(3.0f / 4.0f) * gyroMeasError;
-        //double zeta = 0;
-        //double beta = 0;
+        double zeta = Math.sqrt(3d/4d)*Math.PI/180*(0.0f);
+        double beta = Math.sqrt(3d/4d)*Math.PI/180*0*(0.0f);
 
         double[] q_est = new double[]{1, 0, 0, 0};
-        double delta_T = 0.01;
+        double delta_T = 1d / 100d;
 
         Algorithm initial = new Madgwick(q_est, beta, zeta, delta_T);
 
-        Thread rotationManager = new RotationManager(exchanger, messageExchanger, myWorld, box, label, initial, 18, delta_T);
+        Thread rotationManager = new RotationManager(exchanger, messageExchanger, myWorld, box, label, initial, 18);
         clientSocketThread.setDaemon(true);
         rotationManager.setDaemon(true);
         client2PlotterThread.setDaemon(true);
